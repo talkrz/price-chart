@@ -1,0 +1,31 @@
+{
+  "name": "@talkrz/price-chart",
+  "version": "0.0.1",
+  "description": "Simple, zero-dependency, canvas-based library for drawing candlestick price charts",
+  "main": "src/chart.js",
+  "scripts": {
+    "test": "npm test",
+    "build": "rollup -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/talkrz/price-chart.git"
+  },
+  "keywords": [
+    "finance",
+    "candlestick",
+    "chart"
+  ],
+  "author": "Krzysztof Tałajko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/talkrz/price-chart/issues"
+  },
+  "homepage": "https://github.com/talkrz/price-chart#readme",
+  "devDependencies": {
+    "@babel/core": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "rollup": "^0.67.4",
+    "rollup-plugin-babel": "^4.0.3"
+  }
+}
