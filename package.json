@@ -1,6 +1,9 @@
 {
   "name": "@talkrz/price-chart",
   "version": "0.0.1",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Simple, zero-dependency, canvas-based library for drawing candlestick price charts",
   "main": "src/chart.js",
   "scripts": {
