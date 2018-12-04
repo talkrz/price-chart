@@ -1,6 +1,6 @@
 const viewModel = {};
 
-const round = (v, scale = 1) => {
+function round(v, scale = 1) {
   return Math.round(v * 100 * scale) / 100;
 }
 

@@ -48,10 +48,10 @@ function drawPriceBar(ctx, o, h, l, c, xStart, xEnd, bearBull, style) {
   ];
 
   if (!bearBull) {
-    ctx.strokeStyle = style.colorBull;
-    ctx.fillStyle = style.colorBackground;
+    ctx.strokeStyle = style.colorBullBorder;
+    ctx.fillStyle = style.colorBull;
   } else {
-    ctx.strokeStyle = style.colorBear;
+    ctx.strokeStyle = style.colorBearBorder;
     ctx.fillStyle = style.colorBear;
   }
 

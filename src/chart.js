@@ -37,7 +37,8 @@ export function drawChart() {
   if (!chartView.ctx) return;
 
   // clear drawing
-  chartView.ctx.clearRect(
+  chartView.ctx.fillStyle = chartView.style.colorBackground;
+  chartView.ctx.fillRect(
     0,
     0,
     chartView.width * chartView.devicePixelRatio,
