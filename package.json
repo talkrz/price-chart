@@ -5,7 +5,7 @@
     "access": "public"
   },
   "description": "Simple, zero-dependency, canvas-based library for drawing candlestick price charts",
-  "main": "src/chart.js",
+  "main": "dist/price-chart.js",
   "scripts": {
     "test": "npm test",
     "build": "rollup -c"
