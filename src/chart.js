@@ -9,6 +9,10 @@ let quotes = [];
 const chartView = {};
 const cursor = [];
 
+export function getChartViewModel() {
+  return getViewModel();
+}
+
 export function setCursorPosition(x, y) {
   cursor[0] = x * chartView.devicePixelRatio;
   cursor[1] = y * chartView.devicePixelRatio;
