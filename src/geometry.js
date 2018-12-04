@@ -22,6 +22,12 @@ export function initGeometry(style, width, height, devicePixelRatio) {
   const viewportHeight = height * devicePixelRatio;
 
   geometry.padding = padding;
+  geometry.margin = [
+    marginTop,
+    marginRight,
+    marginBottom,
+    marginLeft,
+  ];
 
   geometry.boxPrice.padding = [
     Math.round(marginLeft) + 0.5,

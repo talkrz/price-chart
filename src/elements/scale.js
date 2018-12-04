@@ -1,20 +1,18 @@
 import { humanScalePrice, dateToTimeScale } from '../chartTools';
 
 export default function scale(view, viewModel) {
-  const scaleLines = prepareXScale(viewModel.priceMin, viewModel.priceMax);
-
-  const boxPricePadding = view.geometry.boxPrice.padding;
-
-  drawYScale(view.ctx, boxPricePadding, scaleLines, viewModel.priceMin, viewModel.priceRange, view);
-
-  const yLines = prepareYScale(viewModel.data, view.locale);
+  const priceBox = view.geometry.boxPrice.padding;
 
   const boxVolume = view.geometry.boxVolume.padding;
 
-  drawXScale(view.ctx, boxPricePadding, boxVolume, yLines, view);
+  const priceLines = preparePriceScale(viewModel.priceMin, viewModel.priceMax);
+  drawPriceScale(view.ctx, priceLines, viewModel.priceMin, viewModel.priceRange, view);
+
+  const timeLines = prepareTimeScale(viewModel.data, view.locale);
+  drawTimeScale(view.ctx, priceBox, boxVolume, timeLines, view);
 }
 
-function prepareXScale(min, max) {
+function preparePriceScale(min, max) {
   const humanScale = humanScalePrice(max - min);
 
   const scaleLines = [];
@@ -27,7 +25,7 @@ function prepareXScale(min, max) {
   return scaleLines;
 }
 
-function prepareYScale(quotes, locale) {
+function prepareTimeScale(quotes, locale) {
   const min = new Date(quotes[0].date).getTime();
   const max = new Date(quotes[quotes.length - 1].date).getTime();
   const diff = max - min;
@@ -46,12 +44,14 @@ function prepareYScale(quotes, locale) {
   return yScaleLines;
 }
 
-function drawYScale(ctx, priceBox, scaleValues, priceMin, priceRange, chartView) {
+function drawPriceScale(ctx, scaleValues, priceMin, priceRange, chartView) {
+  const priceBox = chartView.geometry.boxPrice.padding;
+  const priceBoxContent = chartView.geometry.boxPrice.content;
   const style = chartView.style;
-  const ratio = priceBox[3] / priceRange;
+  const ratio = priceBoxContent[3] / priceRange;
 
   for(let scaleValue of scaleValues) {
-    const screenY = chartView.geometry.padding + priceBox[3] - (scaleValue - priceMin) * ratio;
+    const screenY = chartView.geometry.padding + chartView.geometry.margin[0] + priceBoxContent[3] - (scaleValue - priceMin) * ratio;
 
     ctx.strokeStyle = style.colorGrid;
     ctx.beginPath();
@@ -84,7 +84,7 @@ function drawYScale(ctx, priceBox, scaleValues, priceMin, priceRange, chartView)
   }
 }
 
-function drawXScale(ctx, boxPrice, boxVolume, scaleValues, chartView) {
+function drawTimeScale(ctx, boxPrice, boxVolume, scaleValues, chartView) {
   const style = chartView.style;
   for(let i = 0; i < scaleValues.length; ++i) {
     let verticalLine = scaleValues[i];
