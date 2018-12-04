@@ -18,10 +18,11 @@ export function setCursorPosition(x, y) {
   cursor[1] = y * chartView.devicePixelRatio;
 }
 
-export function initChart(ctx, allQuotes, width, height, devicePixelRatio = 1.0, style, locale) {
+export function initChart(canvasLayers, allQuotes, width, height, devicePixelRatio = 1.0, style, locale) {
   quotes = allQuotes;
 
-  chartView.ctx = ctx;
+  chartView.ctx = canvasLayers.base;
+  chartView.crosshairCtx = canvasLayers.crosshair;
   chartView.width = width;
   chartView.height = height;
   chartView.devicePixelRatio = devicePixelRatio;
@@ -37,8 +38,7 @@ export function drawChart() {
   if (!chartView.ctx) return;
 
   // clear drawing
-  chartView.ctx.fillStyle = chartView.style.colorBackground;
-  chartView.ctx.fillRect(
+  chartView.ctx.clearRect(
     0,
     0,
     chartView.width * chartView.devicePixelRatio,
@@ -54,5 +54,18 @@ export function drawChart() {
   scale(chartView, getViewModel());
   price(chartView, getViewModel());
   volume(chartView, getViewModel());
+}
+
+export function drawCrosshair() {
+  if (!chartView.crosshairCtx) return;
+
+  // clear drawing
+  chartView.crosshairCtx.clearRect(
+    0,
+    0,
+    chartView.width * chartView.devicePixelRatio,
+    chartView.height * chartView.devicePixelRatio
+  );
+
   crosshair(chartView, getViewModel(), cursor);
 }

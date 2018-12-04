@@ -19,7 +19,7 @@ export default function crosshair(view, viewModel, cursor) {
     xValue = screenToPrice(y - boxVolume[1], boxVolume[3], 0, viewModel.volumeMax);
   }
 
-  drawCrosshair(view.ctx, x, y, xValue, boxPricePadding, boxVolumePadding, view);
+  drawCrosshair(view.crosshairCtx, x, y, xValue, boxPricePadding, boxVolumePadding, view);
 }
 
 function drawCrosshair(ctx, x, y, xValue, boxPrice, boxVolume, chartView) {
