@@ -1,5 +1,8 @@
 # price-chart
 
+## Online demo
+https://talkrz.github.io/price-chart-demo/
+
 Simple, zero-dependency, canvas-based library for drawing candlestick price charts
 
 ![Screenshot](docs/screenshot.png)
