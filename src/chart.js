@@ -34,7 +34,7 @@ export function initChart(canvasLayers, allQuotes, width, height, devicePixelRat
   chartView.locale = locale;
 }
 
-export function drawChart() {
+export function drawChart(offset = 0) {
   if (!chartView.ctx) return;
 
   // clear drawing
@@ -48,7 +48,7 @@ export function drawChart() {
   // init current view model
   const width = chartView.geometry.boxPrice.content[2];
   const capacity = Math.floor(width / chartView.stickLength);
-  initViewModel(capacity, quotes);
+  initViewModel(capacity, Math.round(offset), quotes);
 
   // draw all the elements
   scale(chartView, getViewModel());

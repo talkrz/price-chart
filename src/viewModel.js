@@ -7,9 +7,11 @@ function round(v, scale = 1) {
 /**
  * Chart view data model
  */
-export function initViewModel(capacity, quotes) {
-  const q = quotes.slice(-capacity);
-
+export function initViewModel(capacity, offset, quotes) {
+  const q = quotes.slice(
+    -capacity + offset,
+    Math.min(quotes.length, quotes.length + offset)
+  );
   let priceMin = Number.MAX_SAFE_INTEGER;
   let priceMax = 0;
   let volumeMin = Number.MAX_SAFE_INTEGER;
