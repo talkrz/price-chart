@@ -1,4 +1,4 @@
-import { inside, screenToPrice } from '../chartTools';
+import { inside, screenToPrice, relativeFontSize } from '../chartTools';
 
 export default function crosshair(view, viewModel, cursor) {
   const [x, y] = cursor;
@@ -23,6 +23,7 @@ export default function crosshair(view, viewModel, cursor) {
 }
 
 function drawCrosshair(ctx, x, y, xValue, boxPrice, boxVolume, chartView) {
+  const fontSize = relativeFontSize(chartView.width, chartView.height, chartView.fontSize);
   const style = chartView.style;
   ctx.strokeStyle = style.colorCrosshair;
   ctx.beginPath();
@@ -40,7 +41,7 @@ function drawCrosshair(ctx, x, y, xValue, boxPrice, boxVolume, chartView) {
   ctx.lineTo(boxPrice[0] + boxPrice[2],y);
   ctx.stroke();
 
-  ctx.font = `${chartView.fontSize}px "Arial"`;
+  ctx.font = `${fontSize}px "Arial"`;
 
   let unit = '';
 
@@ -57,15 +58,15 @@ function drawCrosshair(ctx, x, y, xValue, boxPrice, boxVolume, chartView) {
   ctx.fillStyle = style.colorBackground;
   ctx.fillRect(
     boxPrice[0] + boxPrice[2] + chartView.geometry.padding * 2,
-    y - chartView.fontSize,
+    y - fontSize,
     ctx.measureText(text).width,
-    chartView.fontSize * 2
+    fontSize * 2
   );
 
   ctx.fillStyle = style.colorScale;
   ctx.fillText(
     text,
     boxPrice[0] + boxPrice[2] + chartView.geometry.padding * 2,
-    y + chartView.fontSize / 3
+    y + fontSize / 3
   );
 }

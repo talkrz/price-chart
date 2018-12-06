@@ -68,3 +68,8 @@ export function screenToPrice(value, height, min, range) {
   const ratio = height / range;
   return height / ratio + min - value / ratio;
 }
+
+export function relativeFontSize(width, height, maxSize) {
+  const size = width / 30;
+  return Math.min(maxSize, size);
+}

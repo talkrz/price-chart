@@ -1,4 +1,8 @@
-import { humanScalePrice, dateToTimeScale } from '../chartTools';
+import {
+  humanScalePrice,
+  dateToTimeScale,
+  relativeFontSize,
+} from '../chartTools';
 
 export default function scale(view, viewModel) {
   const priceBox = view.geometry.boxPrice.padding;
@@ -48,6 +52,7 @@ function drawPriceScale(ctx, scaleValues, priceMin, priceRange, chartView) {
   const priceBox = chartView.geometry.boxPrice.padding;
   const priceBoxContent = chartView.geometry.boxPrice.content;
   const style = chartView.style;
+  const fontSize = relativeFontSize(chartView.width, chartView.height, chartView.fontSize);
   const ratio = priceBoxContent[3] / priceRange;
 
   for(let scaleValue of scaleValues) {
@@ -75,17 +80,18 @@ function drawPriceScale(ctx, scaleValues, priceMin, priceRange, chartView) {
     ctx.stroke();
 
     ctx.fillStyle = style.colorScale;
-    ctx.font = `${chartView.fontSize}px "Arial"`;
+    ctx.font = `${fontSize}px "Arial"`;
     ctx.fillText(
       scaleValue,
       priceBox[0] + priceBox[2] + chartView.geometry.padding * 2,
-      screenY + chartView.fontSize / 3
+      screenY + fontSize / 3
     );
   }
 }
 
 function drawTimeScale(ctx, boxPrice, boxVolume, scaleValues, chartView) {
   const style = chartView.style;
+  const fontSize = relativeFontSize(chartView.width, chartView.height, chartView.fontSize);
   for(let i = 0; i < scaleValues.length; ++i) {
     let verticalLine = scaleValues[i];
     ctx.strokeStyle = style.colorGrid;
@@ -101,11 +107,11 @@ function drawTimeScale(ctx, boxPrice, boxVolume, scaleValues, chartView) {
     ctx.stroke();
 
     ctx.fillStyle = style.colorScale;
-    ctx.font = `${chartView.fontSize}px "Arial"`;
+    ctx.font = `${fontSize}px "Arial"`;
     ctx.fillText(
       verticalLine[1],
       drawingStickBegin,
-      boxPrice[0] + boxPrice[3] + chartView.fontSize
+      boxPrice[0] + boxPrice[3] + fontSize
     );
   }
 }
