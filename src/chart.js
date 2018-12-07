@@ -9,16 +9,16 @@ let quotes = [];
 const chartView = {};
 const cursor = [];
 
-export function getChartViewModel() {
+export function chartGetViewModel() {
   return getViewModel();
 }
 
-export function setCursorPosition(x, y) {
+export function chartSetCursor(x, y) {
   cursor[0] = x * chartView.devicePixelRatio;
   cursor[1] = y * chartView.devicePixelRatio;
 }
 
-export function initChart(
+export function chartInit(
   canvasLayers,
   allQuotes,
   width, height,
@@ -49,7 +49,7 @@ export function initChart(
   chartView.locale = locale;
 }
 
-export function drawChart() {
+export function chartDraw() {
   if (!chartView.ctx) return;
 
   // clear drawing
@@ -71,7 +71,7 @@ export function drawChart() {
   volume(chartView, getViewModel());
 }
 
-export function drawCrosshair() {
+export function chartDrawCrosshair() {
   if (!chartView.crosshairCtx) return;
 
   // clear drawing
