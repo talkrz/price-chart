@@ -24,10 +24,16 @@ export function initChart(
   width, height,
   devicePixelRatio = 1.0,
   zoom,
+  offset,
   style,
   locale
 ) {
   quotes = allQuotes;
+
+  const min = 2;
+  const max = 13;
+  if (zoom < min) zoom = min;
+  if (zoom > max) zoom = max;
 
   chartView.ctx = canvasLayers.base;
   chartView.crosshairCtx = canvasLayers.crosshair;
@@ -38,11 +44,12 @@ export function initChart(
   chartView.geometry = initGeometry(chartView.style, width, height, devicePixelRatio);
   chartView.stickLength = zoom * devicePixelRatio;
   chartView.stickMargin = chartView.style.stickMargin * devicePixelRatio;
+  chartView.offset = offset;
   chartView.fontSize = chartView.style.fontSize * devicePixelRatio;
   chartView.locale = locale;
 }
 
-export function drawChart(offset = 0) {
+export function drawChart() {
   if (!chartView.ctx) return;
 
   // clear drawing
@@ -56,7 +63,7 @@ export function drawChart(offset = 0) {
   // init current view model
   const width = chartView.geometry.boxPrice.content[2];
   const capacity = Math.floor(width / chartView.stickLength);
-  initViewModel(capacity, Math.round(offset), quotes);
+  initViewModel(capacity, Math.round(chartView.offset), quotes);
 
   // draw all the elements
   scale(chartView, getViewModel());
