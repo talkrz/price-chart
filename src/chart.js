@@ -18,7 +18,15 @@ export function setCursorPosition(x, y) {
   cursor[1] = y * chartView.devicePixelRatio;
 }
 
-export function initChart(canvasLayers, allQuotes, width, height, devicePixelRatio = 1.0, style, locale) {
+export function initChart(
+  canvasLayers,
+  allQuotes,
+  width, height,
+  devicePixelRatio = 1.0,
+  zoom,
+  style,
+  locale
+) {
   quotes = allQuotes;
 
   chartView.ctx = canvasLayers.base;
@@ -28,7 +36,7 @@ export function initChart(canvasLayers, allQuotes, width, height, devicePixelRat
   chartView.devicePixelRatio = devicePixelRatio;
   chartView.style = style;
   chartView.geometry = initGeometry(chartView.style, width, height, devicePixelRatio);
-  chartView.stickLength = chartView.style.stickLength * devicePixelRatio;
+  chartView.stickLength = zoom * devicePixelRatio;
   chartView.stickMargin = chartView.style.stickMargin * devicePixelRatio;
   chartView.fontSize = chartView.style.fontSize * devicePixelRatio;
   chartView.locale = locale;
