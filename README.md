@@ -10,6 +10,11 @@ https://talkrz.github.io/price-chart-demo/
 
 ## Release new version
 
+Run tests
+```
+npm test
+```
+
 Update version in package.json
 ```
 # Update package lock file
