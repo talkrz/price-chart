@@ -7,7 +7,7 @@
   "description": "Simple, zero-dependency, canvas-based library for drawing candlestick price charts",
   "main": "dist/price-chart.js",
   "scripts": {
-    "test": "npm test",
+    "test": "export BABEL_ENV=test && mocha --require @babel/register",
     "build": "rollup -c"
   },
   "repository": {
@@ -28,6 +28,8 @@
   "devDependencies": {
     "@babel/core": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
+    "@babel/register": "^7.0.0",
+    "mocha": "^5.2.0",
     "rollup": "^0.67.4",
     "rollup-plugin-babel": "^4.0.3"
   }

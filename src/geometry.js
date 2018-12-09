@@ -12,55 +12,40 @@ const geometry = {
   }
 }
 
+export function makeBox(viewportWidth, viewportHeight, boxConfig, devicePixelRatio) {
+  const marginT = boxConfig.margin[0] * devicePixelRatio;
+  const marginR = boxConfig.margin[1] * devicePixelRatio;
+  const marginB = boxConfig.margin[2] * devicePixelRatio;
+  const marginL = boxConfig.margin[3] * devicePixelRatio;
+
+  const boxTop = marginT + viewportHeight * boxConfig.top * devicePixelRatio;
+  const boxLeft = marginL;
+  const boxWidth = viewportWidth * devicePixelRatio - marginL - marginR;
+  const boxHeight = viewportHeight * boxConfig.height * devicePixelRatio - marginT - marginB;
+
+  const padding = boxConfig.padding * devicePixelRatio;
+
+  const box = {};
+
+  box.padding = [
+    Math.round(boxLeft) + 0.5,
+    Math.round(boxTop) + 0.5,
+    Math.round(boxWidth),
+    Math.round(boxHeight),
+  ];
+
+  box.content = [
+    Math.round(boxLeft + padding) + 0.5,
+    Math.round(boxTop + padding) + 0.5,
+    Math.round(boxWidth - padding * 2),
+    Math.round(boxHeight - padding * 2)
+  ];
+
+  return box;
+}
+
 export function initGeometry(style, width, height, devicePixelRatio) {
-  let marginTop = style.margin[0] * devicePixelRatio;
-  let marginRight = (style.margin[1] + style.scaleWidth) * devicePixelRatio;
-  let marginBottom = (style.margin[2] + height * (1 - style.candlestickHeight)) * devicePixelRatio;
-  let marginLeft = style.margin[3] * devicePixelRatio;
-  const padding = style.padding * devicePixelRatio;
-  const viewportWidth = width * devicePixelRatio;
-  const viewportHeight = height * devicePixelRatio;
-
-  geometry.padding = padding;
-  geometry.margin = [
-    marginTop,
-    marginRight,
-    marginBottom,
-    marginLeft,
-  ];
-
-  geometry.boxPrice.padding = [
-    Math.round(marginLeft) + 0.5,
-    Math.round(marginTop) + 0.5,
-    Math.round(viewportWidth - marginLeft - marginRight),
-    Math.round(viewportHeight - marginTop - marginBottom),
-  ];
-
-  geometry.boxPrice.content = [
-    Math.round(marginLeft + padding) + 0.5,
-    Math.round(marginTop + padding) + 0.5,
-    Math.round(viewportWidth - marginLeft - marginRight - padding * 2),
-    Math.round(viewportHeight - marginTop - marginBottom - padding * 2)
-  ];
-
-  marginTop = (style.margin[0] + height * style.candlestickHeight) * devicePixelRatio;
-  marginRight = (style.margin[1] + style.scaleWidth) * devicePixelRatio;
-  marginBottom = style.margin[2] * devicePixelRatio;
-  marginLeft = style.margin[3] * devicePixelRatio;
-
-  geometry.boxVolume.padding = [
-    Math.round(marginLeft) + 0.5,
-    Math.round(marginTop) + 0.5,
-    Math.round(viewportWidth - marginLeft - marginRight),
-    Math.round(viewportHeight - marginTop - marginBottom),
-  ];
-
-  geometry.boxVolume.content = [
-    Math.round(marginLeft + padding) + 0.5,
-    Math.round(marginTop + padding) + 0.5,
-    Math.round(viewportWidth - marginLeft - marginRight - padding * 2),
-    Math.round(viewportHeight - marginTop - marginBottom - padding * 2)
-  ];
-
+  geometry.boxPrice = makeBox(width, height, style.geometry.boxPrice, devicePixelRatio);
+  geometry.boxVolume = makeBox(width, height, style.geometry.boxVolume, devicePixelRatio);
   return geometry;
 }

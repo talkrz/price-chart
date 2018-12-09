@@ -57,7 +57,7 @@ function drawCrosshair(ctx, x, y, xValue, boxPrice, boxVolume, chartView) {
   const text = xValue + unit;
   ctx.fillStyle = style.colorBackground;
   ctx.fillRect(
-    boxPrice[0] + boxPrice[2] + chartView.geometry.padding * 2,
+    boxPrice[0] + boxPrice[2] + chartView.style.padding * 2,
     y - fontSize,
     ctx.measureText(text).width,
     fontSize * 2
@@ -66,7 +66,7 @@ function drawCrosshair(ctx, x, y, xValue, boxPrice, boxVolume, chartView) {
   ctx.fillStyle = style.colorScale;
   ctx.fillText(
     text,
-    boxPrice[0] + boxPrice[2] + chartView.geometry.padding * 2,
+    boxPrice[0] + boxPrice[2] + chartView.style.padding * 2,
     y + fontSize / 3
   );
 }

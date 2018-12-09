@@ -6,7 +6,6 @@ import {
 
 export default function scale(view, viewModel) {
   const priceBox = view.geometry.boxPrice.padding;
-
   const boxVolume = view.geometry.boxVolume.padding;
 
   const priceLines = preparePriceScale(viewModel.priceMin, viewModel.priceMax);
@@ -56,7 +55,7 @@ function drawPriceScale(ctx, scaleValues, priceMin, priceRange, chartView) {
   const ratio = priceBoxContent[3] / priceRange;
 
   for(let scaleValue of scaleValues) {
-    const screenY = chartView.geometry.padding + chartView.geometry.margin[0] + priceBoxContent[3] - (scaleValue - priceMin) * ratio;
+    const screenY = priceBoxContent[0] + priceBoxContent[3] - (scaleValue - priceMin) * ratio;
 
     ctx.strokeStyle = style.colorGrid;
     ctx.beginPath();
@@ -74,7 +73,7 @@ function drawPriceScale(ctx, scaleValues, priceMin, priceRange, chartView) {
       screenY
     );
     ctx.lineTo(
-      priceBox[0] + priceBox[2] + chartView.geometry.padding,
+      priceBox[0] + priceBox[2] + chartView.style.padding,
       screenY
     );
     ctx.stroke();
@@ -83,7 +82,7 @@ function drawPriceScale(ctx, scaleValues, priceMin, priceRange, chartView) {
     ctx.font = `${fontSize}px "Arial"`;
     ctx.fillText(
       scaleValue,
-      priceBox[0] + priceBox[2] + chartView.geometry.padding * 2,
+      priceBox[0] + priceBox[2] + chartView.style.padding * 2,
       screenY + fontSize / 3
     );
   }
