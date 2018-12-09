@@ -10,26 +10,9 @@ https://talkrz.github.io/price-chart-demo/
 
 ## Release new version
 
-Run tests
+1. Update version in package.json
+2. Run (this command will fail if tests don't pass):
 ```
-npm test
+node ./scripts/release.js
 ```
-
-Update version in package.json
-```
-# Update package lock file
-npm i
-
-# Commit changes
-git add package.json package-lock.json
-git commit -m "Release version v..."
-git push origin master
-
-# Tag new version
-git tag v...
-git push origin --tags
-
-# Build & publish
-npm run build
-npm publish
-```
+3. Execute commands printed by it
