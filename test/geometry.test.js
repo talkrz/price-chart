@@ -3,7 +3,7 @@ import { makeBox } from '../src/geometry';
 
 describe("Geometry", () => {
   describe("makeBox: creates layout rectangle", () => {
-    it("Should make box according to configuration and viewport size", () => {
+    it("Should return two rectangles (with and wothout padding) according to configuration and viewport size", () => {
       const boxConfig = {
         height: 0.5,
         top: 0.25,
