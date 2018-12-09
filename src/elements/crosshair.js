@@ -1,5 +1,6 @@
 import { inside, relativeFontSize } from '../chartTools';
 import { fromScreen } from '../coordinates';
+import { triggerEvent } from '../events';
 
 export default function crosshair(view, viewModel, cursor) {
   const [x, y] = cursor;
@@ -40,11 +41,8 @@ function setCursorData(view, viewModel, cursor) {
     xValue,
     yValue,
   ];
-
   viewModel.cursorData = eventData;
-  if (viewModel.onMove) {
-    viewModel.onMove(eventData)
-  }
+  triggerEvent('moveCursor', eventData);
 }
 
 function drawCrosshair(ctx, x, y, boxPrice, boxVolume, chartView, viewModel) {

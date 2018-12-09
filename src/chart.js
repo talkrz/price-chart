@@ -1,5 +1,10 @@
 import { initViewModel, getViewModel } from './viewModel';
 import { initGeometry } from './geometry';
+import {
+  initEventListeners,
+  addEventListener,
+  removeEventListener,
+} from './events';
 import crosshair from './elements/crosshair';
 import scale from './elements/scale';
 import price from './elements/price';
@@ -47,6 +52,7 @@ export function chartInit(
   chartView.offset = offset;
   chartView.fontSize = chartView.style.fontSize * devicePixelRatio;
   chartView.locale = locale;
+  initEventListeners();
 }
 
 export function chartDraw() {
@@ -85,7 +91,10 @@ export function chartDrawCrosshair() {
   crosshair(chartView, getViewModel(), cursor);
 }
 
-export function chartSubscribeToCursorMove(onMove) {
-  const viewModel = getViewModel();
-  viewModel.onMove = onMove;
+export function chartAddEventListener(eventName, listener) {
+  addEventListener(eventName, listener);
+}
+
+export function chartRemoveEventListener(eventName, listener) {
+  removeEventListener(eventName, listener);
 }
