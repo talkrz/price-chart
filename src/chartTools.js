@@ -53,22 +53,6 @@ export function inside(point, box) {
   );
 }
 
-/**
- * Translate price to screen coordinate
- */
-export function priceToScreen(value, height, min, range) {
-  const ratio = height / range;
-  return Math.round(height - (value - min) * ratio);
-}
-
-/**
- * Translate screen coordinate to price
- */
-export function screenToPrice(value, height, min, range) {
-  const ratio = height / range;
-  return height / ratio + min - value / ratio;
-}
-
 export function relativeFontSize(width, height, maxSize) {
   const size = width / 30;
   return Math.min(maxSize, size);

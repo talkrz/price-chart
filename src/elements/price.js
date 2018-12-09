@@ -1,4 +1,4 @@
-import { priceToScreen } from '../chartTools';
+import { toScreen } from '../coordinates';
 
 export default function price(view, viewModel) {
   const box = view.geometry.boxPrice.padding;
@@ -22,10 +22,10 @@ export default function price(view, viewModel) {
 
     drawPriceBar(
       view.ctx,
-      priceToScreen(o, boxContent[3], viewModel.priceMin, viewModel.priceRange) + boxContent[1],
-      priceToScreen(h, boxContent[3], viewModel.priceMin, viewModel.priceRange) + boxContent[1],
-      priceToScreen(l, boxContent[3], viewModel.priceMin, viewModel.priceRange) + boxContent[1],
-      priceToScreen(c, boxContent[3], viewModel.priceMin, viewModel.priceRange) + boxContent[1],
+      toScreen(o, boxContent[3], viewModel.priceMin, viewModel.priceMax) + boxContent[1],
+      toScreen(h, boxContent[3], viewModel.priceMin, viewModel.priceMax) + boxContent[1],
+      toScreen(l, boxContent[3], viewModel.priceMin, viewModel.priceMax) + boxContent[1],
+      toScreen(c, boxContent[3], viewModel.priceMin, viewModel.priceMax) + boxContent[1],
       xStart,
       xEnd,
       (viewModel.data[i].c < viewModel.data[i].o),

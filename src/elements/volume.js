@@ -1,4 +1,4 @@
-import { priceToScreen } from '../chartTools';
+import { toScreen } from '../coordinates';
 
 export default function volume(view, viewModel) {
   const box = view.geometry.boxVolume.padding;
@@ -17,8 +17,8 @@ export default function volume(view, viewModel) {
 
     drawVolumeBar(
       view.ctx,
-      priceToScreen(0, boxContent[3], 0, viewModel.volumeMax) + boxContent[1],
-      priceToScreen(viewModel.data[i].volume, boxContent[3], 0, viewModel.volumeMax) + boxContent[1],
+      toScreen(0, boxContent[3], 0, viewModel.volumeMax) + boxContent[1],
+      toScreen(viewModel.data[i].volume, boxContent[3], 0, viewModel.volumeMax) + boxContent[1],
       xStart,
       xEnd,
       (viewModel.data[i].c < viewModel.data[i].o),

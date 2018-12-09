@@ -84,3 +84,8 @@ export function chartDrawCrosshair() {
 
   crosshair(chartView, getViewModel(), cursor);
 }
+
+export function chartSubscribeToCursorMove(onMove) {
+  const viewModel = getViewModel();
+  viewModel.onMove = onMove;
+}
