@@ -28,6 +28,18 @@ describe("Geometry", () => {
       assert.equal(box.padding[2], viewportWidth - 20 - 40);
       // height: height minus top and bottom margins
       assert.equal(box.padding[3], viewportHeight * 0.5 - 10 - 30);
+
+      // box content (after subtracting padding): 4 variables in an array
+      assert.equal(box.content.length, 4);
+
+      // left: margin left + half pixel + padding
+      assert.equal(box.content[0], 40 + 0.5 + 5);
+      // top: margin top + half pixel + top + padding
+      assert.equal(box.content[1], 10 + 0.5 + viewportHeight * 0.25 + 5);
+      // width: width minus left and right margins - both paddings
+      assert.equal(box.content[2], viewportWidth - 20 - 40 - 5 - 5);
+      // height: height minus top and bottom margins - both padding
+      assert.equal(box.content[3], viewportHeight * 0.5 - 10 - 30 - 5 - 5);
     })
   })
 })
