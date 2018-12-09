@@ -11,8 +11,9 @@ https://talkrz.github.io/price-chart-demo/
 ## Release new version
 
 1. Update version in package.json
-2. Run (this command will fail if tests don't pass):
+2. Run:
 ```
+# This command will fail if tests don't pass
 node ./scripts/release.js
 ```
 3. Execute commands printed by it
