@@ -1,6 +1,6 @@
 import { toScreen } from '../coordinates';
 
-export default function volume(view, quotes, viewModel) {
+export default function volume(view, quotes) {
   const box = view.geometry.boxVolume.padding;
   const boxContent = view.geometry.boxVolume.content;
   view.ctx.strokeStyle = view.style.colorBorder;
