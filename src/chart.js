@@ -76,7 +76,7 @@ export function chartDraw() {
   // draw all the elements
   const viewModel = getViewModel();
   scaleGrid(chartView, viewModel.quotes, viewModel);
-  price(chartView, viewModel.quotes, viewModel);
+  price(chartView, viewModel.quotes);
   volume(chartView, viewModel.quotes, viewModel);
   chartDrawCrosshair();
 }

@@ -1,6 +1,6 @@
 import { toScreen } from '../coordinates';
 
-export default function price(view, quotes, viewModel) {
+export default function price(view, quotes) {
   const box = view.geometry.boxPrice.padding;
   const boxContent = view.geometry.boxPrice.content;
 
@@ -21,6 +21,15 @@ export default function price(view, quotes, viewModel) {
     const l = q[i].l;
     const c = q[i].c;
 
+    let borderColor, fillColor;
+    if (quotes.data[i].o <= quotes.data[i].c) {
+      borderColor = view.style.colorBullBorder;
+      fillColor = view.style.colorBull;
+    } else {
+      borderColor = view.style.colorBearBorder;
+      fillColor = view.style.colorBear;
+    }
+
     drawPriceBar(
       view.ctx,
       toScreen(o, boxContent[3], quotes.min, quotes.max) + boxContent[1],
@@ -29,13 +38,13 @@ export default function price(view, quotes, viewModel) {
       toScreen(c, boxContent[3], quotes.min, quotes.max) + boxContent[1],
       xStart,
       xEnd,
-      (q[i].c < q[i].o),
-      view.style,
+      fillColor,
+      borderColor,
     );
   }
 }
 
-function drawPriceBar(ctx, o, h, l, c, xStart, xEnd, bearBull, style) {
+function drawPriceBar(ctx, o, h, l, c, xStart, xEnd, fillColor, borderColor) {
   let width = xEnd - xStart;
   if (width % 2) {
     width += 1;
@@ -48,13 +57,8 @@ function drawPriceBar(ctx, o, h, l, c, xStart, xEnd, bearBull, style) {
     c - o
   ];
 
-  if (!bearBull) {
-    ctx.strokeStyle = style.colorBullBorder;
-    ctx.fillStyle = style.colorBull;
-  } else {
-    ctx.strokeStyle = style.colorBearBorder;
-    ctx.fillStyle = style.colorBear;
-  }
+  ctx.strokeStyle = borderColor;
+  ctx.fillStyle = fillColor;
 
   ctx.beginPath();
   ctx.moveTo(

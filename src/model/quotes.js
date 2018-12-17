@@ -11,7 +11,6 @@ const initialData = {
   lastChange: 0.0,
 }
 
-
 export function quotesInit(quotesData) {
   quotes = { ...initialData };
   quotes.data = quotesData;

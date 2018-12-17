@@ -15,19 +15,28 @@ export default function volume(view, quotes, viewModel) {
       xEnd = xStart;
     }
 
+    let borderColor, fillColor;
+    if (quotes.data[i].o <= quotes.data[i].c) {
+      borderColor = view.style.colorBullBorder;
+      fillColor = view.style.colorBull;
+    } else {
+      borderColor = view.style.colorBearBorder;
+      fillColor = view.style.colorBear;
+    }
+
     drawVolumeBar(
       view.ctx,
       toScreen(0, boxContent[3], 0, quotes.maxVolume) + boxContent[1],
       toScreen(quotes.data[i].volume, boxContent[3], 0, quotes.maxVolume) + boxContent[1],
       xStart,
       xEnd,
-      (quotes.data[i].c < quotes.data[i].o),
-      view.style,
+      fillColor,
+      borderColor,
     )
   }
 }
 
-function drawVolumeBar(ctx, o, c, xStart, xEnd, bearBull, style) {
+function drawVolumeBar(ctx, o, c, xStart, xEnd, fillColor, borderColor) {
   let width = xEnd - xStart;
   if (width % 2) {
     width += 1;
@@ -40,13 +49,8 @@ function drawVolumeBar(ctx, o, c, xStart, xEnd, bearBull, style) {
     (c - o)
   ];
 
-  if (!bearBull) {
-    ctx.strokeStyle = style.colorBullBorder;
-    ctx.fillStyle = style.colorBull;
-  } else {
-    ctx.strokeStyle = style.colorBearBorder;
-    ctx.fillStyle = style.colorBear;
-  }
+  ctx.strokeStyle = borderColor;
+  ctx.fillStyle = fillColor;
 
   if (width >= 2) {
     ctx.fillRect(...boxStick);
