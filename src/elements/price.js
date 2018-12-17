@@ -1,13 +1,14 @@
 import { toScreen } from '../coordinates';
 
-export default function price(view, viewModel) {
+export default function price(view, quotes, viewModel) {
   const box = view.geometry.boxPrice.padding;
   const boxContent = view.geometry.boxPrice.content;
 
   view.ctx.strokeStyle = view.style.colorBorder;
   view.ctx.strokeRect(...box);
 
-  const quotesLength = viewModel.data.length;
+  const quotesLength = quotes.data.length;
+  const q = quotes.data;
   for(let i = 0; i < quotesLength; ++i) {
     const xStart = boxContent[0] + i * view.stickLength + view.stickMargin;
     let xEnd = boxContent[0] + (i + 1) * view.stickLength - view.stickMargin;
@@ -15,20 +16,20 @@ export default function price(view, viewModel) {
       xEnd = xStart;
     }
 
-    const o = viewModel.data[i].o;
-    const h = viewModel.data[i].h;
-    const l = viewModel.data[i].l;
-    const c = viewModel.data[i].c;
+    const o = q[i].o;
+    const h = q[i].h;
+    const l = q[i].l;
+    const c = q[i].c;
 
     drawPriceBar(
       view.ctx,
-      toScreen(o, boxContent[3], viewModel.priceMin, viewModel.priceMax) + boxContent[1],
-      toScreen(h, boxContent[3], viewModel.priceMin, viewModel.priceMax) + boxContent[1],
-      toScreen(l, boxContent[3], viewModel.priceMin, viewModel.priceMax) + boxContent[1],
-      toScreen(c, boxContent[3], viewModel.priceMin, viewModel.priceMax) + boxContent[1],
+      toScreen(o, boxContent[3], quotes.min, quotes.max) + boxContent[1],
+      toScreen(h, boxContent[3], quotes.min, quotes.max) + boxContent[1],
+      toScreen(l, boxContent[3], quotes.min, quotes.max) + boxContent[1],
+      toScreen(c, boxContent[3], quotes.min, quotes.max) + boxContent[1],
       xStart,
       xEnd,
-      (viewModel.data[i].c < viewModel.data[i].o),
+      (q[i].c < q[i].o),
       view.style,
     );
   }

@@ -6,23 +6,23 @@ import {
   toScreen,
 } from '../coordinates';
 
-export default function scale(view, viewModel) {
+export default function scale(view, quotes, viewModel) {
   const priceBox = view.geometry.boxPrice.padding;
 
-  drawPriceScale(view.crosshairCtx, viewModel.priceLines, viewModel.priceMin, viewModel.priceRange, view, viewModel);
+  drawPriceScale(view.crosshairCtx, viewModel.priceLines, quotes, view, viewModel);
   drawTimeScale(view.crosshairCtx, priceBox, viewModel.timeLines, view);
 }
 
 
-function drawPriceScale(ctx, scaleValues, priceMin, priceRange, chartView, viewModel) {
+function drawPriceScale(ctx, scaleValues, quotes, chartView, viewModel) {
   const priceBox = chartView.geometry.boxPrice.padding;
   const priceBoxContent = chartView.geometry.boxPrice.content;
   const style = chartView.style;
   const fontSize = relativeFontSize(chartView.width, chartView.height, chartView.fontSize);
-  const ratio = priceBoxContent[3] / priceRange;
+  const ratio = priceBoxContent[3] / quotes.range;
 
   for(let scaleValue of scaleValues) {
-    const screenY = priceBoxContent[0] + priceBoxContent[3] - (scaleValue - priceMin) * ratio;
+    const screenY = priceBoxContent[0] + priceBoxContent[3] - (scaleValue - quotes.min) * ratio;
 
     ctx.strokeStyle = style.colorScale;
     ctx.beginPath();
@@ -38,7 +38,7 @@ function drawPriceScale(ctx, scaleValues, priceMin, priceRange, chartView, viewM
 
     let atCursor = false;
     if (viewModel.cursorData) {
-      const cursorY = toScreen(viewModel.cursorData[1], priceBoxContent[3], viewModel.priceMin, viewModel.priceMax);
+      const cursorY = toScreen(viewModel.cursorData[1], priceBoxContent[3], quotes.min, quotes.max);
       if (cursorY > (screenY - 2 * fontSize) && cursorY < screenY) {
         atCursor = true;
       }

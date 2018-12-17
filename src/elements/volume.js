@@ -1,12 +1,12 @@
 import { toScreen } from '../coordinates';
 
-export default function volume(view, viewModel) {
+export default function volume(view, quotes, viewModel) {
   const box = view.geometry.boxVolume.padding;
   const boxContent = view.geometry.boxVolume.content;
   view.ctx.strokeStyle = view.style.colorBorder;
   view.ctx.strokeRect(...box);
 
-  const quotesLength = viewModel.data.length;
+  const quotesLength = quotes.data.length;
 
   for(let i = 0; i < quotesLength; ++i) {
     const xStart = boxContent[0] + i * view.stickLength + view.stickMargin;
@@ -17,11 +17,11 @@ export default function volume(view, viewModel) {
 
     drawVolumeBar(
       view.ctx,
-      toScreen(0, boxContent[3], 0, viewModel.volumeMax) + boxContent[1],
-      toScreen(viewModel.data[i].volume, boxContent[3], 0, viewModel.volumeMax) + boxContent[1],
+      toScreen(0, boxContent[3], 0, quotes.maxVolume) + boxContent[1],
+      toScreen(quotes.data[i].volume, boxContent[3], 0, quotes.maxVolume) + boxContent[1],
       xStart,
       xEnd,
-      (viewModel.data[i].c < viewModel.data[i].o),
+      (quotes.data[i].c < quotes.data[i].o),
       view.style,
     )
   }

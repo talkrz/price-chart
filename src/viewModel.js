@@ -1,3 +1,4 @@
+import { quotesInit } from './model/quotes';
 import {
   humanScalePrice,
   dateToTimeScale,
@@ -49,10 +50,7 @@ export function initViewModel(capacity, offset, quotes, locale) {
     -capacity + offset,
     Math.min(quotes.length, quotes.length + offset)
   );
-  let priceMin = Number.MAX_SAFE_INTEGER;
-  let priceMax = 0;
-  let volumeMin = Number.MAX_SAFE_INTEGER;
-  let volumeMax = 0;
+  viewModel.quotes = quotesInit(q);
 
 
   function calculateVariance(quote, prevQuote) {
@@ -79,11 +77,6 @@ export function initViewModel(capacity, offset, quotes, locale) {
 
   let prevQuote = null;
   for(let quote of q) {
-    if (quote.h > priceMax) priceMax = quote.h;
-    if (quote.l < priceMin) priceMin = quote.l;
-    if (quote.volume > volumeMax) volumeMax = quote.volume;
-    if (quote.volume < volumeMin) volumeMin = quote.volume;
-
     let variance = calculateVariance(quote, prevQuote);
     varianceAvg += variance;
     if (varianceMin > variance) {
@@ -124,14 +117,6 @@ export function initViewModel(capacity, offset, quotes, locale) {
   viewModel.changeMax = round(changeMax, 100);
   viewModel.changeMinDate = changeMinDate;
   viewModel.changeMaxDate = changeMaxDate;
-  viewModel.change = (q[q.length - 1].c - q[q.length - 2].c) / q[q.length - 2].c;
-  viewModel.change = Math.round(viewModel.change * 10000) / 100;
-  viewModel.data = q;
-  viewModel.priceMin = priceMin;
-  viewModel.priceMax = priceMax;
-  viewModel.priceRange = priceMax - priceMin;
-  viewModel.volumeMin = volumeMin;
-  viewModel.volumeMax = volumeMax;
 
   // scale grid lines
   const localeData = {
@@ -145,8 +130,8 @@ export function initViewModel(capacity, offset, quotes, locale) {
     });
     localeData.monthNames.push(monthName);
   }
-  viewModel.priceLines = preparePriceScale(viewModel.priceMin, viewModel.priceMax);
-  viewModel.timeLines = prepareTimeScale(viewModel.data, localeData);
+  viewModel.priceLines = preparePriceScale(viewModel.quotes.min, viewModel.quotes.max);
+  viewModel.timeLines = prepareTimeScale(viewModel.quotes.data, localeData);
 }
 
 export function getViewModel() {

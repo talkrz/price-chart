@@ -74,9 +74,10 @@ export function chartDraw() {
   initViewModel(capacity, Math.round(chartView.offset), quotes, chartView.locale);
 
   // draw all the elements
-  scaleGrid(chartView, getViewModel());
-  price(chartView, getViewModel());
-  volume(chartView, getViewModel());
+  const viewModel = getViewModel();
+  scaleGrid(chartView, viewModel.quotes, viewModel);
+  price(chartView, viewModel.quotes, viewModel);
+  volume(chartView, viewModel.quotes, viewModel);
   chartDrawCrosshair();
 }
 
@@ -91,7 +92,8 @@ export function chartDrawCrosshair() {
     chartView.height * chartView.devicePixelRatio
   );
 
-  scale(chartView, getViewModel());
+  const viewModel = getViewModel();
+  scale(chartView, viewModel.quotes, viewModel);
   crosshair(chartView, getViewModel(), cursor);
 }
 

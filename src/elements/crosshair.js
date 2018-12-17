@@ -26,16 +26,16 @@ function setCursorData(view, viewModel, cursor) {
   const insidePrice = inside(cursor, boxPricePadding);
   let yValue;
   if (insidePrice) {
-    yValue = fromScreen(y - boxPrice[1], boxPrice[3], viewModel.priceMin, viewModel.priceMax);
+    yValue = fromScreen(y - boxPrice[1], boxPrice[3], viewModel.quotes.min, viewModel.quotes.max);
   } else {
-    yValue = fromScreen(y - boxVolume[1], boxVolume[3], 0, viewModel.volumeMax);
+    yValue = fromScreen(y - boxVolume[1], boxVolume[3], 0, viewModel.quotes.maxVolume);
   }
 
   const stickNumber = Math.round(
     (x - boxPrice[0]) / (view.stickLength)
   );
 
-  const xValue = viewModel.data[stickNumber] ? viewModel.data[stickNumber] : null;
+  const xValue = viewModel.quotes.data[stickNumber] ? viewModel.quotes.data[stickNumber] : null;
 
   const eventData = [
     xValue,
