@@ -1,4 +1,4 @@
-import { inside, relativeFontSize } from '../chartTools';
+import { inside, relativeFontSize, formatPrice } from '../chartTools';
 import { fromScreen } from '../coordinates';
 import { triggerEvent } from '../events';
 
@@ -51,11 +51,6 @@ function drawCrosshair(ctx, x, y, boxPrice, boxVolume, chartView, viewModel) {
   ctx.strokeStyle = style.colorCrosshair;
   ctx.beginPath();
   ctx.moveTo(x, boxPrice[1]);
-  ctx.lineTo(x, boxPrice[1] + boxPrice[3]);
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.moveTo(x, boxVolume[1]);
   ctx.lineTo(x, boxVolume[1] + boxVolume[3]);
   ctx.stroke();
 
@@ -67,25 +62,8 @@ function drawCrosshair(ctx, x, y, boxPrice, boxVolume, chartView, viewModel) {
   ctx.font = `${fontSize}px "Arial"`;
 
   let yValue = viewModel.cursorData[1];
-  let unit = '';
 
-  if (yValue > 9999999) {
-    yValue /= 1000000;
-    unit = 'M';
-  } else if (yValue > 9999) {
-    yValue /= 1000;
-    unit = 'K';
-  }
-
-  yValue = Math.round(yValue * 10) / 10;
-  const text = yValue + unit;
-  ctx.fillStyle = style.colorBackground;
-  ctx.fillRect(
-    boxPrice[0] + boxPrice[2] + chartView.style.padding * 2,
-    y - fontSize,
-    ctx.measureText(text).width,
-    fontSize * 2
-  );
+  const text = formatPrice(yValue);
 
   ctx.fillStyle = style.colorScale;
   ctx.fillText(

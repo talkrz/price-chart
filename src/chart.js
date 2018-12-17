@@ -7,6 +7,7 @@ import {
 } from './events';
 import crosshair from './elements/crosshair';
 import scale from './elements/scale';
+import scaleGrid from './elements/scaleGrid';
 import price from './elements/price';
 import volume from './elements/volume';
 
@@ -52,6 +53,7 @@ export function chartInit(
   chartView.offset = offset;
   chartView.fontSize = chartView.style.fontSize * devicePixelRatio;
   chartView.locale = locale;
+
   initEventListeners();
 }
 
@@ -69,12 +71,13 @@ export function chartDraw() {
   // init current view model
   const width = chartView.geometry.boxPrice.content[2];
   const capacity = Math.floor(width / chartView.stickLength);
-  initViewModel(capacity, Math.round(chartView.offset), quotes);
+  initViewModel(capacity, Math.round(chartView.offset), quotes, chartView.locale);
 
   // draw all the elements
-  scale(chartView, getViewModel());
+  scaleGrid(chartView, getViewModel());
   price(chartView, getViewModel());
   volume(chartView, getViewModel());
+  chartDrawCrosshair();
 }
 
 export function chartDrawCrosshair() {
@@ -88,6 +91,7 @@ export function chartDrawCrosshair() {
     chartView.height * chartView.devicePixelRatio
   );
 
+  scale(chartView, getViewModel());
   crosshair(chartView, getViewModel(), cursor);
 }
 

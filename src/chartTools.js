@@ -23,7 +23,33 @@ export function humanScalePrice(priceRange) {
   return humanScale;
 }
 
-export function dateToTimeScale(date, rangeMilliseconds, locale) {
+
+export function formatPrice(price) {
+  let unit = '';
+
+  if (price > 999999) {
+    price /= 1000000;
+    unit = 'M';
+  } else if (price > 9999) {
+    price /= 1000;
+    unit = 'K';
+  }
+
+  if (price >= 100) {
+    price = Math.round(price * 1) / 1;
+  } else if (price >= 10) {
+    price = Math.round(price * 10) / 10;
+  } else if (price >= 1) {
+    price = Math.round(price * 100) / 100;
+  } else {
+    price = Math.round(price * 100) / 100;
+  }
+
+
+  return price + unit;
+}
+
+export function dateToTimeScale(date, rangeMilliseconds, localeData) {
   const month = 2678400000;
   const year = 31536000000;
 
@@ -31,13 +57,9 @@ export function dateToTimeScale(date, rangeMilliseconds, locale) {
   if (rangeMilliseconds > year) {
     result = date.getFullYear();
   } else if (rangeMilliseconds > month) {
-    result = date.toLocaleString(locale, {
-      month: "short"
-    });
+    result = localeData.monthNames[date.getMonth()];
   } else {
-    result = date.getDay() + ' ' + date.toLocaleString(locale, {
-      month: "short"
-    });
+    result = date.getDay() + ' ' + localeData.monthNames[date.getMonth()];
   }
 
   return result;

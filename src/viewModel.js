@@ -1,13 +1,50 @@
+import {
+  humanScalePrice,
+  dateToTimeScale,
+} from './chartTools';
+
 const viewModel = {};
 
 function round(v, scale = 1) {
   return Math.round(v * 100 * scale) / 100;
 }
 
+function preparePriceScale(min, max) {
+  const humanScale = humanScalePrice(max - min);
+
+  const scaleLines = [];
+  for(let i = 0; i < max; i += humanScale) {
+    if (i > min) {
+      scaleLines.push(Math.round(i * 100) / 100);
+    }
+  }
+
+  return scaleLines;
+}
+
+function prepareTimeScale(quotes, localeData) {
+  const min = new Date(quotes[0].date).getTime();
+  const max = new Date(quotes[quotes.length - 1].date).getTime();
+  const diff = max - min;
+
+  const yScaleLines = [];
+  let verticalUnit = null;
+  for(let i = 0; i < quotes.length; ++i) {
+    const newVerticalUnit = dateToTimeScale(new Date(quotes[i].date), diff, localeData);
+
+    if (newVerticalUnit !== verticalUnit) {
+      yScaleLines.push([i, newVerticalUnit]);
+    }
+    verticalUnit = newVerticalUnit;
+  }
+
+  return yScaleLines;
+}
+
 /**
  * Chart view data model
  */
-export function initViewModel(capacity, offset, quotes) {
+export function initViewModel(capacity, offset, quotes, locale) {
   const q = quotes.slice(
     -capacity + offset,
     Math.min(quotes.length, quotes.length + offset)
@@ -95,6 +132,21 @@ export function initViewModel(capacity, offset, quotes) {
   viewModel.priceRange = priceMax - priceMin;
   viewModel.volumeMin = volumeMin;
   viewModel.volumeMax = volumeMax;
+
+  // scale grid lines
+  const localeData = {
+    monthNames: []
+  };
+  for(let month = 0; month < 12; ++month) {
+    const date = new Date();
+    date.setMonth(month);
+    const monthName = date.toLocaleString(locale, {
+      month: "short"
+    });
+    localeData.monthNames.push(monthName);
+  }
+  viewModel.priceLines = preparePriceScale(viewModel.priceMin, viewModel.priceMax);
+  viewModel.timeLines = prepareTimeScale(viewModel.data, localeData);
 }
 
 export function getViewModel() {
