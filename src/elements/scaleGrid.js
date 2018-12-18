@@ -1,6 +1,6 @@
-export default function scaleGrid(view, quotes, viewModel) {
-  drawPriceScaleGrid(view.ctx, viewModel.priceLines, quotes.min, quotes.range, view);
-  drawTimeScaleGrid(view.ctx, viewModel.timeLines, view);
+export default function scaleGrid(view, quotes, priceLines, timeLines) {
+  drawPriceScaleGrid(view.ctx, priceLines, quotes.min, quotes.range, view);
+  drawTimeScaleGrid(view.ctx, timeLines, view);
 }
 
 function drawPriceScaleGrid(ctx, scaleValues, priceMin, priceRange, chartView) {

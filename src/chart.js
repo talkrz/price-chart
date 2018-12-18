@@ -4,6 +4,7 @@ import {
   initEventListeners,
   addEventListener,
   removeEventListener,
+  triggerEvent,
 } from './events';
 import crosshair from './elements/crosshair';
 import scale from './elements/scale';
@@ -75,9 +76,9 @@ export function chartDraw() {
 
   // draw all the elements
   const viewModel = getViewModel();
-  scaleGrid(chartView, viewModel.quotes, viewModel);
+  scaleGrid(chartView, viewModel.quotes, viewModel.priceLines, viewModel.timeLines);
   price(chartView, viewModel.quotes);
-  volume(chartView, viewModel.quotes, viewModel);
+  volume(chartView, viewModel.quotes);
   chartDrawCrosshair();
 }
 
@@ -93,8 +94,13 @@ export function chartDrawCrosshair() {
   );
 
   const viewModel = getViewModel();
-  scale(chartView, viewModel.quotes, viewModel);
-  crosshair(chartView, getViewModel(), cursor);
+  scale(chartView, viewModel.quotes, viewModel.priceLines, viewModel.timeLines, viewModel.cursorData);
+  const cursorData = crosshair(chartView, viewModel.quotes, viewModel.cursorData, cursor);
+
+  if (viewModel.cursorData[0] !== cursorData[0] || viewModel.cursorData[1] !== cursorData[1]) {
+    viewModel.cursorData = cursorData;
+    triggerEvent('moveCursor', cursorData);
+  }
 }
 
 export function chartAddEventListener(eventName, listener) {

@@ -117,6 +117,7 @@ export function initViewModel(capacity, offset, quotes, locale) {
   viewModel.changeMax = round(changeMax, 100);
   viewModel.changeMinDate = changeMinDate;
   viewModel.changeMaxDate = changeMaxDate;
+  viewModel.cursorData = [null, null];
 
   // scale grid lines
   const localeData = {

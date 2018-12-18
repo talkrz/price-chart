@@ -1,8 +1,7 @@
 import { inside, relativeFontSize, formatPrice } from '../chartTools';
 import { fromScreen } from '../coordinates';
-import { triggerEvent } from '../events';
 
-export default function crosshair(view, viewModel, cursor) {
+export default function crosshair(view, quotes, cursorData, cursor) {
   const [x, y] = cursor;
 
   const boxPricePadding = view.geometry.boxPrice.padding;
@@ -10,14 +9,14 @@ export default function crosshair(view, viewModel, cursor) {
 
   const insidePrice = inside(cursor, boxPricePadding);
   const insideVolume = inside(cursor, boxVolumePadding)
-  if (!insidePrice && !insideVolume) return;
+  if (!insidePrice && !insideVolume) return [null, null];
 
-  setCursorData(view, viewModel, cursor);
+  drawCrosshair(view.crosshairCtx, x, y, boxPricePadding, boxVolumePadding, view, cursorData);
 
-  drawCrosshair(view.crosshairCtx, x, y, boxPricePadding, boxVolumePadding, view, viewModel);
+  return getCursorData(view, cursor, quotes);
 }
 
-function setCursorData(view, viewModel, cursor) {
+function getCursorData(view, cursor, quotes) {
   const [x, y] = cursor;
   const boxPrice = view.geometry.boxPrice.content;
   const boxVolume = view.geometry.boxVolume.content;
@@ -26,26 +25,26 @@ function setCursorData(view, viewModel, cursor) {
   const insidePrice = inside(cursor, boxPricePadding);
   let yValue;
   if (insidePrice) {
-    yValue = fromScreen(y - boxPrice[1], boxPrice[3], viewModel.quotes.min, viewModel.quotes.max);
+    yValue = fromScreen(y - boxPrice[1], boxPrice[3], quotes.min, quotes.max);
   } else {
-    yValue = fromScreen(y - boxVolume[1], boxVolume[3], 0, viewModel.quotes.maxVolume);
+    yValue = fromScreen(y - boxVolume[1], boxVolume[3], 0, quotes.maxVolume);
   }
 
   const stickNumber = Math.round(
     (x - boxPrice[0]) / (view.stickLength)
   );
 
-  const xValue = viewModel.quotes.data[stickNumber] ? viewModel.quotes.data[stickNumber] : null;
+  const xValue = quotes.data[stickNumber] ? quotes.data[stickNumber] : null;
 
   const eventData = [
     xValue,
     yValue,
   ];
-  viewModel.cursorData = eventData;
-  triggerEvent('moveCursor', eventData);
+
+  return eventData;
 }
 
-function drawCrosshair(ctx, x, y, boxPrice, boxVolume, chartView, viewModel) {
+function drawCrosshair(ctx, x, y, boxPrice, boxVolume, chartView, cursorData) {
   const fontSize = relativeFontSize(chartView.width, chartView.height, chartView.fontSize);
   const style = chartView.style;
   ctx.strokeStyle = style.colorCrosshair;
@@ -61,7 +60,7 @@ function drawCrosshair(ctx, x, y, boxPrice, boxVolume, chartView, viewModel) {
 
   ctx.font = `${fontSize}px "Arial"`;
 
-  let yValue = viewModel.cursorData[1];
+  let yValue = cursorData[1];
 
   const text = formatPrice(yValue);
 

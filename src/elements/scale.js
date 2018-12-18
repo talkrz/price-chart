@@ -6,15 +6,15 @@ import {
   toScreen,
 } from '../coordinates';
 
-export default function scale(view, quotes, viewModel) {
+export default function scale(view, quotes, priceLines, timeLines, cursorData) {
   const priceBox = view.geometry.boxPrice.padding;
 
-  drawPriceScale(view.crosshairCtx, viewModel.priceLines, quotes, view, viewModel);
-  drawTimeScale(view.crosshairCtx, priceBox, viewModel.timeLines, view);
+  drawPriceScale(view.crosshairCtx, priceLines, quotes, view, cursorData);
+  drawTimeScale(view.crosshairCtx, priceBox, timeLines, view);
 }
 
 
-function drawPriceScale(ctx, scaleValues, quotes, chartView, viewModel) {
+function drawPriceScale(ctx, scaleValues, quotes, chartView, cursorData) {
   const priceBox = chartView.geometry.boxPrice.padding;
   const priceBoxContent = chartView.geometry.boxPrice.content;
   const style = chartView.style;
@@ -37,8 +37,8 @@ function drawPriceScale(ctx, scaleValues, quotes, chartView, viewModel) {
     ctx.stroke();
 
     let atCursor = false;
-    if (viewModel.cursorData) {
-      const cursorY = toScreen(viewModel.cursorData[1], priceBoxContent[3], quotes.min, quotes.max);
+    if (cursorData) {
+      const cursorY = toScreen(cursorData[1], priceBoxContent[3], quotes.min, quotes.max);
       if (cursorY > (screenY - 2 * fontSize) && cursorY < screenY) {
         atCursor = true;
       }
