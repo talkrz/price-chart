@@ -15,7 +15,7 @@ https://talkrz.github.io/price-chart-demo/
 
 Include the library in your HTML document:
 ```html
-<script src="https://unpkg.com/@talkrz/price-chart@0.10.2/dist/price-chart-umd.min.js"></script>
+<script src="https://unpkg.com/@talkrz/price-chart@latest/dist/price-chart-umd.min.js"></script>
 ```
 
 Make canvas elements to draw the chart on:
