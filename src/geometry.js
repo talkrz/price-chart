@@ -44,8 +44,8 @@ export function makeBox(viewportWidth, viewportHeight, boxConfig, devicePixelRat
   return box;
 }
 
-export function initGeometry(style, width, height, devicePixelRatio) {
-  geometry.boxPrice = makeBox(width, height, style.geometry.boxPrice, devicePixelRatio);
-  geometry.boxVolume = makeBox(width, height, style.geometry.boxVolume, devicePixelRatio);
+export function initGeometry(geometryConfig, width, height, devicePixelRatio) {
+  geometry.boxPrice = makeBox(width, height, geometryConfig.boxPrice, devicePixelRatio);
+  geometry.boxVolume = makeBox(width, height, geometryConfig.boxVolume, devicePixelRatio);
   return geometry;
 }

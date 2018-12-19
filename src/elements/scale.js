@@ -31,7 +31,7 @@ function drawPriceScale(ctx, scaleValues, quotes, chartView, cursorData) {
       screenY
     );
     ctx.lineTo(
-      priceBox[0] + priceBox[2] + chartView.style.padding,
+      priceBox[0] + priceBox[2] + chartView.config.padding,
       screenY
     );
     ctx.stroke();
@@ -49,7 +49,7 @@ function drawPriceScale(ctx, scaleValues, quotes, chartView, cursorData) {
       ctx.font = `${fontSize}px "Arial"`;
       ctx.fillText(
         scaleValue,
-        priceBox[0] + priceBox[2] + chartView.style.padding * 2,
+        priceBox[0] + priceBox[2] + chartView.config.padding * 2,
         screenY + fontSize / 3
       );
     }

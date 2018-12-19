@@ -67,7 +67,7 @@ function drawCrosshair(ctx, x, y, boxPrice, boxVolume, chartView, cursorData) {
   ctx.fillStyle = style.colorScale;
   ctx.fillText(
     text,
-    boxPrice[0] + boxPrice[2] + chartView.style.padding * 2,
+    boxPrice[0] + boxPrice[2] + chartView.config.padding * 2,
     y + fontSize / 3
   );
 }

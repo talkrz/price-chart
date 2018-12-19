@@ -11,10 +11,21 @@ import scale from './elements/scale';
 import scaleGrid from './elements/scaleGrid';
 import price from './elements/price';
 import volume from './elements/volume';
+import defaultConfig from './view/defaultConfig';
+import themes from './view/themes';
 
 let quotes = [];
+const config = defaultConfig;
 const chartView = {};
 const cursor = [];
+
+export function chartConfig() {
+  return config;
+}
+
+export function chartThemes() {
+  return themes;
+}
 
 export function chartGetViewModel() {
   return getViewModel();
@@ -32,7 +43,7 @@ export function chartInit(
   devicePixelRatio = 1.0,
   zoom,
   offset,
-  style,
+  theme,
   locale
 ) {
   quotes = allQuotes;
@@ -43,16 +54,17 @@ export function chartInit(
   if (zoom > max) zoom = max;
 
   chartView.ctx = canvasLayers.base;
-  chartView.crosshairCtx = canvasLayers.crosshair;
+  chartView.crosshairCtx = canvasLayers.scale;
   chartView.width = width;
   chartView.height = height;
   chartView.devicePixelRatio = devicePixelRatio;
-  chartView.style = style;
-  chartView.geometry = initGeometry(chartView.style, width, height, devicePixelRatio);
+  chartView.style = theme;
+  chartView.config = config;
+  chartView.geometry = initGeometry(config.geometry, width, height, devicePixelRatio);
   chartView.stickLength = zoom * devicePixelRatio;
-  chartView.stickMargin = chartView.style.stickMargin * devicePixelRatio;
+  chartView.stickMargin = chartView.config.stickMargin * devicePixelRatio;
   chartView.offset = offset;
-  chartView.fontSize = chartView.style.fontSize * devicePixelRatio;
+  chartView.fontSize = chartView.config.fontSize * devicePixelRatio;
   chartView.locale = locale;
 
   initEventListeners();
