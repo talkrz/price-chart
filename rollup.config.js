@@ -31,7 +31,7 @@ module.exports = [
       uglify()
     ]),
     output: {
-      name: 'price-chart',
+      name: 'PriceChart',
       file: 'dist/price-chart-umd.min.js',
       format: 'umd'
     }
