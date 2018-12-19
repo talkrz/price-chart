@@ -4,11 +4,25 @@ import {
   dateToTimeScale,
 } from './chartTools';
 
-const viewModel = {};
-
-function round(v, scale = 1) {
-  return Math.round(v * 100 * scale) / 100;
-}
+/**
+ * View model data structure
+ * It is the data of current chart view
+ */
+const viewModel = {
+  /**
+   * Quotes model, contains all price data that is in current view
+   */
+  quotes: null,
+  /**
+   * Data user cursor points to
+   */
+  cursorData: null,
+  /**
+   * Values of the scale lines
+   */
+  priceLines: null,
+  timeLines: null,
+};
 
 function preparePriceScale(min, max) {
   const humanScale = humanScalePrice(max - min);
@@ -51,72 +65,6 @@ export function initViewModel(capacity, offset, quotes, locale) {
     Math.min(quotes.length, quotes.length + offset)
   );
   viewModel.quotes = quotesInit(q);
-
-
-  function calculateVariance(quote, prevQuote) {
-    const prevClose = prevQuote ? prevQuote.c : quote.o;
-
-    const diff1 = Math.abs(prevClose - quote.h);
-    const diff2 = Math.abs(prevClose - quote.l);
-    return Math.max(diff1, diff2);
-  }
-
-  let varianceMin = Number.MAX_SAFE_INTEGER;
-  let varianceMax = 0;
-  let varianceAvg = 0;
-  let varianceMinDate = null;
-  let varianceMaxDate = null;
-
-  let changeMin = Number.MAX_SAFE_INTEGER;
-  let changeMax = 0;
-  let changeAvg = 0;
-  let changeMinDate = null;
-  let changeMaxDate = null;
-
-  const histogram = [];
-
-  let prevQuote = null;
-  for(let quote of q) {
-    let variance = calculateVariance(quote, prevQuote);
-    varianceAvg += variance;
-    if (varianceMin > variance) {
-      varianceMin = variance;
-      varianceMinDate = quote.date;
-    }
-    if (varianceMax < variance) {
-      varianceMax = variance;
-      varianceMaxDate = quote.date;
-    }
-
-    const prevClose = prevQuote ? prevQuote.c : quote.o;
-    const change = (quote.c - prevClose)/prevClose;
-    changeAvg += Math.abs(change);
-    if (changeMin > change) {
-      changeMin = change;
-      changeMinDate = quote.date;
-    }
-    if (changeMax < change) {
-      changeMax = change;
-      changeMaxDate = quote.date;
-    }
-    histogram.push(change);
-
-    prevQuote = quote;
-  }
-
-  histogram.sort(function (a, b) { return a-b; });
-
-  viewModel.histogram = histogram.reverse();
-  viewModel.varianceAvg = round(varianceAvg / q.length);
-  viewModel.varianceMin = round(varianceMin);
-  viewModel.varianceMax = round(varianceMax);
-  viewModel.varianceMinDate = varianceMinDate;
-  viewModel.varianceMaxDate = varianceMaxDate;
-  viewModel.changeAvg = round(changeAvg / q.length, 100);
-  viewModel.changeMin = round(changeMin, 100);
-  viewModel.changeMax = round(changeMax, 100);
-  viewModel.changeMinDate = changeMinDate;
-  viewModel.changeMaxDate = changeMaxDate;
   viewModel.cursorData = [null, null];
 
   // scale grid lines
