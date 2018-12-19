@@ -5,7 +5,8 @@
     "access": "public"
   },
   "description": "Simple, zero-dependency, canvas-based library for drawing candlestick price charts",
-  "main": "dist/price-chart.js",
+  "main": "dist/price-chart.cjs.js",
+  "module": "dist/price-chart.esm.js",
   "scripts": {
     "test": "export BABEL_ENV=test && mocha --require @babel/register",
     "build": "rollup -c",
@@ -32,6 +33,7 @@
     "@babel/register": "^7.0.0",
     "mocha": "^5.2.0",
     "rollup": "^0.67.4",
-    "rollup-plugin-babel": "^4.0.3"
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-uglify": "^6.0.0"
   }
 }
