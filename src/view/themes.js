@@ -21,6 +21,6 @@ export default {
     colorBorder: '#333',
     colorScale: '#aaa',
     colorCrosshair: '#666',
-    colorLine: '#666',
+    colorLine: '#aaa',
   },
 }
