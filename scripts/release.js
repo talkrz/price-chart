@@ -32,7 +32,7 @@ async function showReleaseCommands() {
     console.log('\x1b[2m%s\x1b[0m', '# Update package lock file');
     console.log('npm i');
     console.log('\x1b[2m%s\x1b[0m', '# Commit changes');
-    console.log('git add package.json package-lock.json');
+    console.log('git add package.json package-lock.json CHANGELOG.md');
     console.log(`git commit -m "Release version v${version}"`);
     console.log('git push origin master');
     console.log('\x1b[2m%s\x1b[0m', '# Tag new version');
