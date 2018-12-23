@@ -9,6 +9,7 @@ export default {
     colorBorder: '#e8e8e8',
     colorScale: '#666',
     colorCrosshair: '#ccc',
+    colorLine: '#666',
   },
   dark: {
     colorBackground: '#000',
@@ -20,5 +21,6 @@ export default {
     colorBorder: '#333',
     colorScale: '#aaa',
     colorCrosshair: '#666',
+    colorLine: '#666',
   },
 }

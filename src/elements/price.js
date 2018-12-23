@@ -9,42 +9,76 @@ export default function price(view, quotes) {
 
   const quotesLength = quotes.data.length;
   const q = quotes.data;
+  let prevC = q[0].o;
   for(let i = 0; i < quotesLength; ++i) {
-    const xStart = boxContent[0] + i * view.stickLength + view.stickMargin;
-    let xEnd = boxContent[0] + (i + 1) * view.stickLength - view.stickMargin;
-    if (xEnd < xStart) {
-      xEnd = xStart;
-    }
-
-    const o = q[i].o;
-    const h = q[i].h;
-    const l = q[i].l;
-    const c = q[i].c;
-
-    let borderColor, fillColor;
-    if (quotes.data[i].o <= quotes.data[i].c) {
-      borderColor = view.style.colorBullBorder;
-      fillColor = view.style.colorBull;
+    if (view.chartType === 'candlestick') {
+      priceCandlestick(view.ctx, quotes, i, boxContent, view.stickLength, view.stickMargin, view.style);
     } else {
-      borderColor = view.style.colorBearBorder;
-      fillColor = view.style.colorBear;
+      priceLine(view.ctx, quotes, i, boxContent, view.stickLength, view.style);
     }
 
-    drawPriceBar(
-      view.ctx,
-      toScreen(o, boxContent[3], quotes.min, quotes.max) + boxContent[1],
-      toScreen(h, boxContent[3], quotes.min, quotes.max) + boxContent[1],
-      toScreen(l, boxContent[3], quotes.min, quotes.max) + boxContent[1],
-      toScreen(c, boxContent[3], quotes.min, quotes.max) + boxContent[1],
-      xStart,
-      xEnd,
-      fillColor,
-      borderColor,
-    );
+
+    prevC = q[i].c;
   }
 }
 
-function drawPriceBar(ctx, o, h, l, c, xStart, xEnd, fillColor, borderColor) {
+function priceLine(ctx, quotes, i, boxContent, stickLength, style) {
+  const xStart = boxContent[0] + i * stickLength;
+  let xEnd = boxContent[0] + (i + 1) * stickLength;
+  const q = quotes.data;
+  const c = q[i].c;
+  const prevC = i === 0 ? q[i].o : q[i - 1].c;
+
+  ctx.strokeStyle = style.colorLine;
+  ctx.beginPath();
+  ctx.moveTo(
+    xStart,
+    toScreen(prevC, boxContent[3], quotes.min, quotes.max) + boxContent[1]
+  );
+  ctx.lineTo(
+    xEnd,
+    toScreen(c, boxContent[3], quotes.min, quotes.max) + boxContent[1]
+  );
+  ctx.stroke();
+}
+
+function priceCandlestick(ctx, quotes, i, boxContent, stickLength, stickMargin, style) {
+  const xStart = boxContent[0] + i * stickLength + stickMargin;
+  let xEnd = boxContent[0] + (i + 1) * stickLength - stickMargin;
+  if (xEnd < xStart) {
+    xEnd = xStart;
+  }
+
+  const q = quotes.data;
+
+  const o = q[i].o;
+  const h = q[i].h;
+  const l = q[i].l;
+  const c = q[i].c;
+
+  let borderColor, fillColor;
+  if (o <= c) {
+    borderColor = style.colorBullBorder;
+    fillColor = style.colorBull;
+  } else {
+    borderColor = style.colorBearBorder;
+    fillColor = style.colorBear;
+  }
+
+  candlestick(
+    ctx,
+    toScreen(o, boxContent[3], quotes.min, quotes.max) + boxContent[1],
+    toScreen(h, boxContent[3], quotes.min, quotes.max) + boxContent[1],
+    toScreen(l, boxContent[3], quotes.min, quotes.max) + boxContent[1],
+    toScreen(c, boxContent[3], quotes.min, quotes.max) + boxContent[1],
+    xStart,
+    xEnd,
+    fillColor,
+    borderColor,
+  );
+}
+
+export function candlestick(ctx, o, h, l, c, xStart, xEnd, fillColor, borderColor) {
   let width = xEnd - xStart;
   if (width % 2) {
     width += 1;

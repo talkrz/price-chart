@@ -61,6 +61,7 @@ export function chartInit(
   chartView.style = theme;
   chartView.config = config;
   chartView.geometry = initGeometry(config.geometry, width, height, devicePixelRatio);
+  chartView.chartType = config.chartType;
   chartView.stickLength = zoom * devicePixelRatio;
   chartView.stickMargin = chartView.config.stickMargin * devicePixelRatio;
   chartView.offset = offset;
