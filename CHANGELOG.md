@@ -2,6 +2,10 @@
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v0.11.1
+- Fix dark theme line color
+- Add CHANGELOG.md to release procedure
+
 ## v0.11.0
 - Added line chart type
 
