@@ -106,9 +106,10 @@ PriceChart.chartDraw();
 ## Release new version
 
 1. Update version in package.json
-2. Run:
-```
-# This command will fail if tests don't pass
-node ./scripts/release.js
-```
-3. Execute commands printed by it
+2. Update CHANGELOG.md file
+3. Run:
+  ```
+  # This command will fail if tests don't pass
+  node ./scripts/release.js
+  ```
+4. Execute commands printed by it
