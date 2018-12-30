@@ -59,7 +59,7 @@ export function dateToTimeScale(date, rangeMilliseconds, localeData) {
   } else if (rangeMilliseconds > month) {
     result = localeData.monthNames[date.getMonth()];
   } else {
-    result = date.getDay() + ' ' + localeData.monthNames[date.getMonth()];
+    result = date.getDate() + ' ' + localeData.monthNames[date.getMonth()];
   }
 
   return result;

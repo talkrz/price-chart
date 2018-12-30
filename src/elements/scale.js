@@ -59,17 +59,27 @@ function drawPriceScale(ctx, scaleValues, quotes, chartView, cursorData) {
 function drawTimeScale(ctx, boxPrice, scaleValues, chartView) {
   const style = chartView.style;
   const fontSize = relativeFontSize(chartView.width, chartView.height, chartView.fontSize);
-  for(let i = 0; i < scaleValues.length; ++i) {
+  let previousLabelX = Number.MAX_SAFE_INTEGER;
+  for(let i = scaleValues.length - 1; i > 0; --i) {
     let verticalLine = scaleValues[i];
     ctx.strokeStyle = style.colorGrid;
     const drawingStickBegin = boxPrice[0] + (verticalLine[0] + 0.5) * chartView.stickLength;
 
     ctx.fillStyle = style.colorScale;
     ctx.font = `${fontSize}px "Arial"`;
-    ctx.fillText(
-      verticalLine[1],
-      drawingStickBegin,
-      boxPrice[0] + boxPrice[3] + fontSize
-    );
+
+    const labelWidth = ctx.measureText(verticalLine[1]).width;
+
+    // prevent drawing labels on top each other
+    if (drawingStickBegin + labelWidth < previousLabelX) {
+      ctx.fillText(
+        verticalLine[1],
+        drawingStickBegin,
+        boxPrice[0] + boxPrice[3] + fontSize
+      );
+    }
+
+    previousLabelX = drawingStickBegin;
+
   }
 }
