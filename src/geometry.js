@@ -2,14 +2,8 @@
  * Chart box model geometry
  */
 const geometry = {
-  boxPrice: {
-    padding: {},
-    content: {},
-  },
-  boxVolume: {
-    padding: {},
-    content: {},
-  }
+  boxPrice: null,
+  boxVolume: null,
 }
 
 export function makeBox(viewportWidth, viewportHeight, boxConfig, devicePixelRatio) {
@@ -46,6 +40,9 @@ export function makeBox(viewportWidth, viewportHeight, boxConfig, devicePixelRat
 
 export function initGeometry(geometryConfig, width, height, devicePixelRatio) {
   geometry.boxPrice = makeBox(width, height, geometryConfig.boxPrice, devicePixelRatio);
-  geometry.boxVolume = makeBox(width, height, geometryConfig.boxVolume, devicePixelRatio);
+
+  if (geometryConfig.boxVolume) {
+    geometry.boxVolume = makeBox(width, height, geometryConfig.boxVolume, devicePixelRatio);
+  }
   return geometry;
 }

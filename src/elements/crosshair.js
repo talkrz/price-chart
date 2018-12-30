@@ -5,10 +5,10 @@ export default function crosshair(view, quotes, cursorData, cursor) {
   const [x, y] = cursor;
 
   const boxPricePadding = view.geometry.boxPrice.padding;
-  const boxVolumePadding = view.geometry.boxVolume.padding;
+  const boxVolumePadding = view.geometry.boxVolume ? view.geometry.boxVolume.padding : null;
 
   const insidePrice = inside(cursor, boxPricePadding);
-  const insideVolume = inside(cursor, boxVolumePadding)
+  const insideVolume = boxVolumePadding ? inside(cursor, boxVolumePadding) : false;
   if (!insidePrice && !insideVolume) return [null, null];
 
   drawCrosshair(view.crosshairCtx, x, y, boxPricePadding, boxVolumePadding, view, cursorData);
@@ -50,7 +50,11 @@ function drawCrosshair(ctx, x, y, boxPrice, boxVolume, chartView, cursorData) {
   ctx.strokeStyle = style.colorCrosshair;
   ctx.beginPath();
   ctx.moveTo(x, boxPrice[1]);
-  ctx.lineTo(x, boxVolume[1] + boxVolume[3]);
+  if (boxVolume) {
+    ctx.lineTo(x, boxVolume[1] + boxVolume[3]);
+  } else {
+    ctx.lineTo(x, boxPrice[1] + boxPrice[3]);
+  }
   ctx.stroke();
 
   ctx.beginPath();

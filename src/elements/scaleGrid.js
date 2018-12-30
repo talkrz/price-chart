@@ -25,7 +25,7 @@ function drawPriceScaleGrid(ctx, scaleValues, priceMin, priceRange, chartView) {
 
 function drawTimeScaleGrid(ctx, scaleValues, chartView) {
   const boxPrice = chartView.geometry.boxPrice.padding;
-  const boxVolume = chartView.geometry.boxVolume.padding;
+  const boxVolume = chartView.geometry.boxVolume ? chartView.geometry.boxVolume.padding : null;
 
   const style = chartView.style;
 
@@ -35,7 +35,11 @@ function drawTimeScaleGrid(ctx, scaleValues, chartView) {
     const drawingStickBegin = boxPrice[0] + (verticalLine[0] + 0.5) * chartView.stickLength;
     ctx.beginPath();
     ctx.moveTo(drawingStickBegin, boxPrice[1]);
-    ctx.lineTo(drawingStickBegin, boxVolume[1] + boxVolume[3]);
+    if (boxVolume) {
+      ctx.lineTo(drawingStickBegin, boxVolume[1] + boxVolume[3]);
+    } else {
+      ctx.lineTo(drawingStickBegin, boxPrice[1] + boxPrice[3]);
+    }
     ctx.stroke();
   }
 }

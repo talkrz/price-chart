@@ -96,7 +96,10 @@ export function chartDraw() {
   const viewModel = getViewModel();
   scaleGrid(chartView, viewModel.quotes, viewModel.priceLines, viewModel.timeLines);
   price(chartView, viewModel.quotes);
-  volume(chartView, viewModel.quotes);
+
+  if (chartView.geometry.boxVolume) {
+    volume(chartView, viewModel.quotes);
+  }
   chartDrawCrosshair();
 }
 
