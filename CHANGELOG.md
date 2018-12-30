@@ -2,6 +2,13 @@
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v0.11.2
+- Possible to draw the chart without volume box
+- Fixed bug in displaying time scale labels
+- Add exception when invalid dimensions passed. Sometimes browser set
+  big height value to the canvas and before the change counterintuitive
+  NS_ERROR_FAILURE was thrown
+
 ## v0.11.1
 - Fix dark theme line color
 - Add CHANGELOG.md to release procedure
