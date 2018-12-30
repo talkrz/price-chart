@@ -46,6 +46,10 @@ export function chartInit(
   theme,
   locale
 ) {
+  const maxDimension = 8192;
+  if (width > maxDimension || height > maxDimension) {
+    throw new Error(`Maximum chart dimensions exceeded: [${width}x${height}]`);
+  }
   quotes = allQuotes;
 
   const min = 2;
@@ -60,7 +64,7 @@ export function chartInit(
   chartView.devicePixelRatio = devicePixelRatio;
   chartView.style = theme;
   chartView.config = config;
-  chartView.geometry = initGeometry(config.geometry, width, height, devicePixelRatio);
+  chartView.geometry = initGeometry(config.geometry, chartView.width, chartView.height, devicePixelRatio);
   chartView.chartType = config.chartType;
   chartView.stickLength = zoom * devicePixelRatio;
   chartView.stickMargin = chartView.config.stickMargin * devicePixelRatio;
@@ -85,6 +89,7 @@ export function chartDraw() {
   // init current view model
   const width = chartView.geometry.boxPrice.content[2];
   const capacity = Math.floor(width / chartView.stickLength);
+
   initViewModel(capacity, Math.round(chartView.offset), quotes, chartView.locale);
 
   // draw all the elements
