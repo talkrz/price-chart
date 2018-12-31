@@ -112,6 +112,6 @@ PriceChart.chartDraw();
 3. Run:
   ```
   # This command will fail if tests don't pass
-  node ./scripts/release.js
+  npm run release
   ```
 4. Execute commands printed by it
