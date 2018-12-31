@@ -72,7 +72,7 @@ export function initViewModel(capacity, offset, quotes, locale) {
   };
   for(let month = 0; month < 12; ++month) {
     const date = new Date();
-    date.setDate(0);
+    date.setTime(0);
     date.setMonth(month);
     const monthName = date.toLocaleString(locale, {
       month: "short"

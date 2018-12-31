@@ -58,6 +58,9 @@ export function dateToTimeScale(date, rangeMilliseconds, localeData) {
     result = date.getFullYear();
   } else if (rangeMilliseconds > month) {
     result = localeData.monthNames[date.getMonth()];
+    if (date.getMonth() === 0) {
+      result += ' ' + date.getFullYear();
+    }
   } else {
     result = date.getDate() + ' ' + localeData.monthNames[date.getMonth()];
   }
