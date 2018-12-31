@@ -2,6 +2,10 @@
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v0.12.2
+- Expose chart capacity (number of data points you can draw on) in the view
+  model
+
 ## v0.12.1
 - Show year in time scale when displaying months
 - Fixed missing months in time scale bug (again)
