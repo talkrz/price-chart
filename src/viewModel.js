@@ -46,7 +46,6 @@ function prepareTimeScale(quotes, localeData) {
   let verticalUnit = null;
   for(let i = 0; i < quotes.length; ++i) {
     const newVerticalUnit = dateToTimeScale(new Date(quotes[i].date), diff, localeData);
-
     if (newVerticalUnit !== verticalUnit) {
       yScaleLines.push([i, newVerticalUnit]);
     }
@@ -73,11 +72,13 @@ export function initViewModel(capacity, offset, quotes, locale) {
   };
   for(let month = 0; month < 12; ++month) {
     const date = new Date();
+    date.setDate(0);
     date.setMonth(month);
     const monthName = date.toLocaleString(locale, {
       month: "short"
     });
     localeData.monthNames.push(monthName);
+
   }
   viewModel.priceLines = preparePriceScale(viewModel.quotes.min, viewModel.quotes.max);
   viewModel.timeLines = prepareTimeScale(viewModel.quotes.data, localeData);
