@@ -31,7 +31,7 @@ function getCursorData(view, cursor, quotes) {
   }
 
   const stickNumber = Math.round(
-    (x - boxPrice[0]) / (view.stickLength)
+    (x - view.stickLength / 2 - boxPrice[0]) / (view.stickLength)
   );
 
   const xValue = quotes.data[stickNumber] ? quotes.data[stickNumber] : null;
