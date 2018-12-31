@@ -2,6 +2,10 @@
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v0.12.1
+- Show year in time scale when displaying months
+- Fixed missing months in time scale bug (again)
+
 ## v0.12.0
 - Changed config data structure and chart initialization arguments
 - Fix missing months in time scale bug
