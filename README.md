@@ -88,15 +88,17 @@ scale.height = height * devicePixelRatio;
 
 // prepare chart view
 PriceChart.chartInit(
-  layers,
   data,
-  width,
-  height,
-  devicePixelRatio,
-  8,
-  0,
-  PriceChart.chartThemes()['light'],
-  'en',
+  layers,
+  {
+    width,
+    height,
+    devicePixelRatio,
+    zoom: 8,
+    offset: 0,
+    config: PriceChart.chartDefaultConfig(),
+    theme: PriceChart.chartThemes()['light'],
+  }
 );
 
 // draw chart

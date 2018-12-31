@@ -15,12 +15,11 @@ import defaultConfig from './view/defaultConfig';
 import themes from './view/themes';
 
 let quotes = [];
-const config = defaultConfig;
 const chartView = {};
 const cursor = [];
 
-export function chartConfig() {
-  return config;
+export function chartDefaultConfig() {
+  return {...defaultConfig};
 }
 
 export function chartThemes() {
@@ -37,20 +36,23 @@ export function chartSetCursor(x, y) {
 }
 
 export function chartInit(
+  data,
   canvasLayers,
-  allQuotes,
-  width, height,
-  devicePixelRatio = 1.0,
-  zoom,
-  offset,
-  theme,
-  locale
+  {
+    width,
+    height,
+    devicePixelRatio,
+    zoom,
+    offset,
+    config,
+    theme,
+  }
 ) {
   const maxDimension = 8192;
   if (width > maxDimension || height > maxDimension) {
     throw new Error(`Maximum chart dimensions exceeded: [${width}x${height}]`);
   }
-  quotes = allQuotes;
+  quotes = data;
 
   const min = 2;
   const max = 13;
@@ -70,7 +72,7 @@ export function chartInit(
   chartView.stickMargin = chartView.config.stickMargin * devicePixelRatio;
   chartView.offset = offset;
   chartView.fontSize = chartView.config.fontSize * devicePixelRatio;
-  chartView.locale = locale;
+  chartView.locale = config.locale;
 
   initEventListeners();
 }

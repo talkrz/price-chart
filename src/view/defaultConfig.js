@@ -1,5 +1,6 @@
 export default {
   chartType: 'candlestick',
+  locale: 'en',
   stickMargin: 2,
   fontSize: 14,
   padding: 5,
