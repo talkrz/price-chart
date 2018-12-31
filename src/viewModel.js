@@ -80,6 +80,8 @@ export function initViewModel(capacity, offset, quotes, locale) {
     localeData.monthNames.push(monthName);
 
   }
+
+  viewModel.capacity = capacity;
   viewModel.priceLines = preparePriceScale(viewModel.quotes.min, viewModel.quotes.max);
   viewModel.timeLines = prepareTimeScale(viewModel.quotes.data, localeData);
 }
