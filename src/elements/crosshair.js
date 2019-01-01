@@ -19,14 +19,16 @@ export default function crosshair(view, quotes, cursorData, cursor) {
 function getCursorData(view, cursor, quotes) {
   const [x, y] = cursor;
   const boxPrice = view.geometry.boxPrice.content;
-  const boxVolume = view.geometry.boxVolume.content;
   const boxPricePadding = view.geometry.boxPrice.padding;
+  const boxVolume = view.geometry.boxVolume ? view.geometry.boxVolume.content : null;
+  const boxVolumePadding = view.geometry.boxVolume ? view.geometry.boxVolume.padding : null;
 
   const insidePrice = inside(cursor, boxPricePadding);
+  const insideVolume = boxVolumePadding ? inside(cursor, boxVolumePadding) : false;
   let yValue;
   if (insidePrice) {
     yValue = fromScreen(y - boxPrice[1], boxPrice[3], quotes.min, quotes.max);
-  } else {
+  } else if (insideVolume) {
     yValue = fromScreen(y - boxVolume[1], boxVolume[3], 0, quotes.maxVolume);
   }
 

@@ -43,6 +43,8 @@ export function initGeometry(geometryConfig, width, height, devicePixelRatio) {
 
   if (geometryConfig.boxVolume) {
     geometry.boxVolume = makeBox(width, height, geometryConfig.boxVolume, devicePixelRatio);
+  } else {
+    geometry.boxVolume = null;
   }
   return geometry;
 }

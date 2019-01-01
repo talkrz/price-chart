@@ -19,7 +19,12 @@ const chartView = {};
 const cursor = [];
 
 export function chartDefaultConfig() {
-  return {...defaultConfig};
+  const config = {...defaultConfig};
+  config.geometry = {};
+  config.geometry.boxPrice = {...defaultConfig.geometry.boxPrice };
+  config.geometry.boxVolume = {...defaultConfig.geometry.boxVolume };
+
+  return config;
 }
 
 export function chartThemes() {
@@ -52,6 +57,8 @@ export function chartInit(
   if (width > maxDimension || height > maxDimension) {
     throw new Error(`Maximum chart dimensions exceeded: [${width}x${height}]`);
   }
+  cursor[0] = 0;
+  cursor[1] = 0;
   quotes = data;
 
   const min = 2;
