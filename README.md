@@ -8,6 +8,8 @@ This demo includes both React and vanilla JS examples:
 https://talkrz.github.io/price-chart-demo/
 
 ![Screenshot](docs/screenshot.png)
+![Screenshot](docs/screenshot2.png)
+![Screenshot](docs/screenshot3.png)
 
 ## Usage
 
