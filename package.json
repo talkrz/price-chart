@@ -1,6 +1,6 @@
 {
   "name": "@talkrz/price-chart",
-  "version": "0.12.4",
+  "version": "0.12.5",
   "publishConfig": {
     "access": "public"
   },
@@ -10,6 +10,7 @@
   "scripts": {
     "test": "export BABEL_ENV=test && mocha --require @babel/register",
     "build": "rollup -c",
+    "watch": "rollup -c --watch",
     "release": "node scripts/release.js"
   },
   "repository": {

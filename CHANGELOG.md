@@ -2,6 +2,9 @@
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v0.12.5
+- Add file watch command for development
+
 ## v0.12.4
 - Add some screenshots
 
