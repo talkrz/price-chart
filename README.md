@@ -11,6 +11,9 @@ https://talkrz.github.io/price-chart-demo/
 ![Screenshot](docs/screenshot2.png)
 ![Screenshot](docs/screenshot3.png)
 
+## Play with the code on CodeSandbox
+https://codesandbox.io/s/pxx9l9oz0
+
 ## Usage
 
 ### Minimal example without user interactions
