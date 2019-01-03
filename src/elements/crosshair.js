@@ -64,7 +64,7 @@ function drawCrosshair(ctx, x, y, boxPrice, boxVolume, chartView, cursorData) {
   ctx.lineTo(boxPrice[0] + boxPrice[2],y);
   ctx.stroke();
 
-  ctx.font = `${fontSize}px "Arial"`;
+  ctx.font = `${fontSize * chartView.devicePixelRatio}px "Arial"`;
 
   let yValue = cursorData[1];
 

@@ -46,7 +46,7 @@ function drawPriceScale(ctx, scaleValues, quotes, chartView, cursorData) {
 
     if (!atCursor) {
       ctx.fillStyle = style.colorScale;
-      ctx.font = `${fontSize}px "Arial"`;
+      ctx.font = `${fontSize * chartView.devicePixelRatio}px "Arial"`;
       ctx.fillText(
         scaleValue,
         priceBox[0] + priceBox[2] + chartView.config.padding * 2,
@@ -66,7 +66,7 @@ function drawTimeScale(ctx, boxPrice, scaleValues, chartView) {
     const drawingStickBegin = boxPrice[0] + (verticalLine[0] + 0.5) * chartView.stickLength;
 
     ctx.fillStyle = style.colorScale;
-    ctx.font = `${fontSize}px "Arial"`;
+    ctx.font = `${fontSize * chartView.devicePixelRatio}px "Arial"`;
 
     const labelWidth = ctx.measureText(verticalLine[1]).width;
 
@@ -75,7 +75,7 @@ function drawTimeScale(ctx, boxPrice, scaleValues, chartView) {
       ctx.fillText(
         verticalLine[1],
         drawingStickBegin,
-        boxPrice[0] + boxPrice[3] + fontSize
+        boxPrice[0] + boxPrice[3] + fontSize * devicePixelRatio
       );
     }
 
