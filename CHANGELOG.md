@@ -2,6 +2,9 @@
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v0.12.8
+- Fix font size multiplication by device pixel ratio
+
 ## v0.12.7
 - Make font sizes dependant on device pixel ratio
   to prevent displaying small fonts on dense displays
