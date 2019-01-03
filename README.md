@@ -7,12 +7,14 @@ Simple, lightweight, zero-dependency, canvas-based library for drawing candlesti
 This demo includes both React and vanilla JS examples:
 https://talkrz.github.io/price-chart-demo/
 
+## Play with the code on CodeSandbox
+https://codesandbox.io/s/pxx9l9oz0
+
+## Screenshots
+
 ![Screenshot](docs/screenshot.png)
 ![Screenshot](docs/screenshot2.png)
 ![Screenshot](docs/screenshot3.png)
-
-## Play with the code on CodeSandbox
-https://codesandbox.io/s/pxx9l9oz0
 
 ## Usage
 
