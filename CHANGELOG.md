@@ -2,6 +2,10 @@
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v0.12.6
+- Proper data initialization preventing uncontrollable behvior when
+  reinitializing chart
+
 ## v0.12.5
 - Add file watch command for development
 
