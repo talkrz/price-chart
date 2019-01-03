@@ -47,7 +47,7 @@ function getCursorData(view, cursor, quotes) {
 }
 
 function drawCrosshair(ctx, x, y, boxPrice, boxVolume, chartView, cursorData) {
-  const fontSize = relativeFontSize(chartView.width, chartView.height, chartView.fontSize);
+  const fontSize = relativeFontSize(chartView.width, chartView.height, chartView.fontSize, chartView.devicePixelRatio);
   const style = chartView.style;
   ctx.strokeStyle = style.colorCrosshair;
   ctx.beginPath();
@@ -64,7 +64,7 @@ function drawCrosshair(ctx, x, y, boxPrice, boxVolume, chartView, cursorData) {
   ctx.lineTo(boxPrice[0] + boxPrice[2],y);
   ctx.stroke();
 
-  ctx.font = `${fontSize * chartView.devicePixelRatio}px "Arial"`;
+  ctx.font = `${fontSize}px "Arial"`;
 
   let yValue = cursorData[1];
 

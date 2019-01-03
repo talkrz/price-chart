@@ -18,7 +18,7 @@ function drawPriceScale(ctx, scaleValues, quotes, chartView, cursorData) {
   const priceBox = chartView.geometry.boxPrice.padding;
   const priceBoxContent = chartView.geometry.boxPrice.content;
   const style = chartView.style;
-  const fontSize = relativeFontSize(chartView.width, chartView.height, chartView.fontSize);
+  const fontSize = relativeFontSize(chartView.width, chartView.height, chartView.fontSize, chartView.devicePixelRatio);
   const ratio = priceBoxContent[3] / quotes.range;
 
   for(let scaleValue of scaleValues) {
@@ -46,7 +46,7 @@ function drawPriceScale(ctx, scaleValues, quotes, chartView, cursorData) {
 
     if (!atCursor) {
       ctx.fillStyle = style.colorScale;
-      ctx.font = `${fontSize * chartView.devicePixelRatio}px "Arial"`;
+      ctx.font = `${fontSize}px "Arial"`;
       ctx.fillText(
         scaleValue,
         priceBox[0] + priceBox[2] + chartView.config.padding * 2,
@@ -58,7 +58,7 @@ function drawPriceScale(ctx, scaleValues, quotes, chartView, cursorData) {
 
 function drawTimeScale(ctx, boxPrice, scaleValues, chartView) {
   const style = chartView.style;
-  const fontSize = relativeFontSize(chartView.width, chartView.height, chartView.fontSize);
+  const fontSize = relativeFontSize(chartView.width, chartView.height, chartView.fontSize, chartView.devicePixelRatio);
   let previousLabelX = Number.MAX_SAFE_INTEGER;
   for(let i = scaleValues.length - 1; i > 0; --i) {
     let verticalLine = scaleValues[i];
@@ -66,7 +66,7 @@ function drawTimeScale(ctx, boxPrice, scaleValues, chartView) {
     const drawingStickBegin = boxPrice[0] + (verticalLine[0] + 0.5) * chartView.stickLength;
 
     ctx.fillStyle = style.colorScale;
-    ctx.font = `${fontSize * chartView.devicePixelRatio}px "Arial"`;
+    ctx.font = `${fontSize}px "Arial"`;
 
     const labelWidth = ctx.measureText(verticalLine[1]).width;
 
@@ -75,7 +75,7 @@ function drawTimeScale(ctx, boxPrice, scaleValues, chartView) {
       ctx.fillText(
         verticalLine[1],
         drawingStickBegin,
-        boxPrice[0] + boxPrice[3] + fontSize * devicePixelRatio
+        boxPrice[0] + boxPrice[3] + fontSize
       );
     }
 
