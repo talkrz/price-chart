@@ -46,7 +46,6 @@ export function chartInit(
   {
     width,
     height,
-    devicePixelRatio,
     zoom,
     offset,
     config,
@@ -66,8 +65,14 @@ export function chartInit(
   if (zoom < min) zoom = min;
   if (zoom > max) zoom = max;
 
-  chartView.ctx = canvasLayers.base;
-  chartView.crosshairCtx = canvasLayers.scale;
+  const devicePixelRatio = window.devicePixelRatio;
+  canvasLayers.base.width = width * devicePixelRatio;
+  canvasLayers.base.height = height * devicePixelRatio;
+  canvasLayers.scale.width = width * devicePixelRatio;
+  canvasLayers.scale.height = height * devicePixelRatio;
+
+  chartView.ctx = canvasLayers.base.getContext("2d");
+  chartView.crosshairCtx = canvasLayers.scale.getContext("2d");
   chartView.width = width;
   chartView.height = height;
   chartView.devicePixelRatio = devicePixelRatio;

@@ -62,15 +62,13 @@ Position the canvas layers one on top the other:
 
 Draw the chart:
 ```javascript
-// get screen device pixel ratio
-const devicePixelRatio = window.devicePixelRatio;
-
 // create HTML elements references
 const content = document.getElementById('ChartContent');
 const base = document.getElementById('ChartCanvasContent');
 const scale = document.getElementById('ChartCanvasScale');
 
 // set chart dimensions
+// in this case the content HTML element dimensions
 const width = content.offsetWidth;
 const height = content.offsetHeight;
 
@@ -78,29 +76,26 @@ const height = content.offsetHeight;
 // one for drawing price and volume
 // and other for scale
 const layers = {
-  base: base.getContext("2d"),
-  scale: scale.getContext("2d")
+  base: base,
+  scale: scale
 };
 
-// set canvas elements dimensions
-base.width = width * devicePixelRatio;
-base.height = height * devicePixelRatio;
-scale.width = width * devicePixelRatio;
-scale.height = height * devicePixelRatio;
-
 // prepare chart view
+const chartState = {
+  width,
+  height,
+  zoom: 8,
+  offset: 0,
+  // you can modify the config and theme objects
+  // but here we just use the default ones
+  config: PriceChart.chartDefaultConfig(),
+  theme: PriceChart.chartThemes()['light'],
+}
+
 PriceChart.chartInit(
   data,
   layers,
-  {
-    width,
-    height,
-    devicePixelRatio,
-    zoom: 8,
-    offset: 0,
-    config: PriceChart.chartDefaultConfig(),
-    theme: PriceChart.chartThemes()['light'],
-  }
+  chartState
 );
 
 // draw chart
