@@ -2,6 +2,9 @@
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v0.16.0
+- Update dev dependencies
+
 ## v0.15.0
 - Fix scale font size bug
 - Add CodeSandbox example
