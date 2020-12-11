@@ -2,6 +2,12 @@
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## v0.15.0
+- Fix scale font size bug
+- Add CodeSandbox example
+- Don't add tests to the build
+- Removed some unused code
+
 ## v0.14.0
 - Hide device pixel ratio logic from user to simplify the setup
 
