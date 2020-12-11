@@ -1,5 +1,4 @@
-import babel from 'rollup-plugin-babel';
-import { uglify } from 'rollup-plugin-uglify';
+import babel from '@rollup/plugin-babel';
 import packageConfig from './package.json';
 
 const plugins = [
@@ -23,17 +22,6 @@ module.exports = [
     output: {
       file: packageConfig.module,
       format: 'esm'
-    }
-  },
-  {
-    input: 'src/chart.js',
-    plugins: plugins.concat([
-      uglify()
-    ]),
-    output: {
-      name: 'PriceChart',
-      file: 'dist/price-chart-umd.min.js',
-      format: 'umd'
     }
   }
 ];
