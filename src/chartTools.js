@@ -80,5 +80,5 @@ export function inside(point, box) {
 
 export function relativeFontSize(width, height, maxSize, devicePixelRatio) {
   const size = width / 30;
-  return Math.min(maxSize, size) * devicePixelRatio;
+  return Math.min(maxSize, size);
 }

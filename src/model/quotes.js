@@ -62,7 +62,6 @@ function pluginInitDailyChange(quotes) {
     avg: 0,
     minDate: null,
     maxDate: null,
-    histogram: [],
   }
 
   let prevQuote = null;
@@ -78,16 +77,12 @@ function pluginInitDailyChange(quotes) {
       data.max = change;
       data.maxDate = quote.date;
     }
-    data.histogram.push(change);
-
     prevQuote = quote;
   }
 
   data.avg = Math.round(data.avg / quotes.length * 10000) / 100;
   data.min = Math.round(data.min * 10000) / 100;
   data.max = Math.round(data.max * 10000) / 100;
-
-  data.histogram.sort(function (a, b) { return a-b; });
 
   return data;
 }
